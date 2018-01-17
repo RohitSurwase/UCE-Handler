@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">UCE Handler</string>
+    <string name="ask_for_error_log">An unexpected error has occurred.\nHelp developers by providing error details.\nThank you for your support.</string>
+    <string name="email_welcome_note">Dear Dev Team,\n\nApplication is just crashed, please check following error log for more details.\n\n\n</string>
+    <string name="copyright_info">UCE Handler\nCopyright © 2018 Rohit Sahebrao Surwase.</string>
+</resources>
