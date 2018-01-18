@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/UCE-Handler.iml" filepath="$PROJECT_DIR$/UCE-Handler.iml" />
-      <module fileurl="file://$PROJECT_DIR$/example_app/app.iml" filepath="$PROJECT_DIR$/example_app/app.iml" />
+      <module fileurl="file://D:\Soft_Dev\AS_Projects\UCE-Handler\example_app\app.iml" filepath="D:\Soft_Dev\AS_Projects\UCE-Handler\example_app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/example_app/example_app.iml" filepath="$PROJECT_DIR$/example_app/example_app.iml" />
       <module fileurl="file://$PROJECT_DIR$/ignore-dummy-module/ignore-dummy-module.iml" filepath="$PROJECT_DIR$/ignore-dummy-module/ignore-dummy-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/uce_handler/uce_handler.iml" filepath="$PROJECT_DIR$/uce_handler/uce_handler.iml" />
     </modules>
