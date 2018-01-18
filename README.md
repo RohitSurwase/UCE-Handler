@@ -1,7 +1,7 @@
 [![](https://jitpack.io/v/RohitSurwase/UCE-Handler.svg)](https://jitpack.io/#RohitSurwase/UCE-Handler) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![GitHub stars](https://img.shields.io/github/stars/RohitSurwase/UCE-Handler.svg?style=social&label=Star)](https://GitHub.com/RohitSurwase/UCE-Handler/stargazers)
 
 # UCE Handler
-##### Android library which lets you View, Copy, Share, Save and Email Application's Crash Logs easily.
+### Android library which lets you View, Copy, Share, Save and Email Application's Crash Logs easily.
 
 <img src="https://github.com/RohitSurwase/UCE_Handler/raw/master/art/feature_screen.png" alt="Library Feature Screen"   width="200" height="350" title="Library Feature Screen" />
 
@@ -23,7 +23,7 @@ It is so easy. Just add library this to your Android project and initialize in i
 * Activity track. //optional
 * All log files are placed in a separate folder.
 
-##### Log files are named upon App's name so you can identify and distinguish files easily if you have added this library in multiple projects/applications.
+### Log files are named upon App's name so you can identify and distinguish files easily if you have added this library in multiple projects/applications.
 
 ## Setup
 In your Project's build.gradle file:
@@ -43,6 +43,8 @@ In your Application's or Module's build.gradle file:
 	}
 
 In your Application class:
+* Initialize library using builder pattern.
+* Add comma separated email addresses who will receive crash logs. //optional
     
     public class MyApplication extends Application {
     @Override public void onCreate() { super.onCreate();
@@ -53,15 +55,17 @@ In your Application class:
     } }
 
 # Optional Parameters
-#####    .setUCEHEnabled(true/false)
+### .setUCEHEnabled(true/false)
 //  default 'true'
 Enable/disable UCE_Handler.
-#####    .setTrackActivitiesEnabled(true/false)
+### .setTrackActivitiesEnabled(true/false)
 //  default 'false'
 Choose whether you want to track the flow of activities the user/tester has taken or not.
-#####    .setBackgroundModeEnabled(true/false)
+### .setBackgroundModeEnabled(true/false)
 //  default 'true'
 Choose if you want to catch exceptions while app is in background.
+
+### 'Save Error Log' will work only if your app already has storage permission as library does not ask for it.
 
 ## Authors & Contributers
 
