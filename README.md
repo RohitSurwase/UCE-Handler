@@ -46,13 +46,13 @@ In your Application class:
 * Initialize library using builder pattern.
 * Add comma separated email addresses who will receive crash logs. //optional
     
-    public class MyApplication extends Application {
-    @Override public void onCreate() { super.onCreate();
-        // Other Stuff
-        new UCEHandler.Builder(this)
-            .addCommaSeparatedEmailAddresses("abc@gmail.com, pqr@gmail.com,...)
-            .build();
-    } }
+		public class MyApplication extends Application {
+		@Override public void onCreate() { super.onCreate();
+			// Other Stuff
+			new UCEHandler.Builder(this)
+				.addCommaSeparatedEmailAddresses("abc@gmail.com, pqr@gmail.com,...)
+				.build();
+		} }
 
 # Optional Parameters
 ### .setUCEHEnabled(true/false)
