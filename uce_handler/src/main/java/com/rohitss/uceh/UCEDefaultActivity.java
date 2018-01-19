@@ -15,7 +15,6 @@
  *  * limitations under the License.
  *
  */
-
 package com.rohitss.uceh;
 
 import android.annotation.SuppressLint;
