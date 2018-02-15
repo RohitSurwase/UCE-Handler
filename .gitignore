@@ -2,7 +2,7 @@
 #Created by "rohitss"
 # Remove tracked files using [git rm -r --cached .]
 # Built application files
-*.apk
+#*.apk
 *.ap_
 
 /gradle.properties
