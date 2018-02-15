@@ -54,6 +54,7 @@ import java.util.Locale;
  */
 public final class UCEDefaultActivity extends Activity {
     private File txtFile;
+    private String strCurrentErrorLog;
 
     @SuppressLint("PrivateResource")
     @Override
@@ -115,7 +116,7 @@ public final class UCEDefaultActivity extends Activity {
                         .show();
                 TextView textView = dialog.findViewById(android.R.id.message);
                 if (textView != null) {
-                    textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, 24);
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                 }
             }
         });
@@ -213,66 +214,72 @@ public final class UCEDefaultActivity extends Activity {
     }
 
     private String getAllErrorDetailsFromIntent(Context context, Intent intent) {
-        String LINE_SEPARATOR = "\n";
-        StringBuilder errorReport = new StringBuilder();
-        errorReport.append("********** UCE HANDLER LOG **********");
-        errorReport.append("\n************ DEVICE INFO ************\n");
-        errorReport.append("Brand: ");
-        errorReport.append(Build.BRAND);
-        errorReport.append(LINE_SEPARATOR);
-        errorReport.append("Device: ");
-        errorReport.append(Build.DEVICE);
-        errorReport.append(LINE_SEPARATOR);
-        errorReport.append("Model: ");
-        errorReport.append(Build.MODEL);
-        errorReport.append(LINE_SEPARATOR);
-        errorReport.append("Manufacturer: ");
-        errorReport.append(Build.MANUFACTURER);
-        errorReport.append(LINE_SEPARATOR);
-        errorReport.append("Product: ");
-        errorReport.append(Build.PRODUCT);
-        errorReport.append(LINE_SEPARATOR);
-        errorReport.append("SDK: ");
-        errorReport.append(Build.VERSION.SDK);
-        errorReport.append(LINE_SEPARATOR);
-        errorReport.append("Release: ");
-        errorReport.append(Build.VERSION.RELEASE);
-        errorReport.append(LINE_SEPARATOR);
-        errorReport.append("\n************* APP INFO **************\n");
-        String versionName = getVersionName(context);
-        errorReport.append("Version: ");
-        errorReport.append(versionName);
-        errorReport.append(LINE_SEPARATOR);
-        Date currentDate = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-        String firstInstallTime = getFirstInstallTimeAsString(context, dateFormat);
-        if (!TextUtils.isEmpty(firstInstallTime)) {
-            errorReport.append("Installed On: ");
-            errorReport.append(firstInstallTime);
+        if (TextUtils.isEmpty(strCurrentErrorLog)) {
+            String LINE_SEPARATOR = "\n";
+            StringBuilder errorReport = new StringBuilder();
+            errorReport.append("******** UCE HANDLER Library ********");
+            errorReport.append("\n*********** by Rohit Surwase ********\n");
+            errorReport.append("\n************ DEVICE INFO ************\n");
+            errorReport.append("Brand: ");
+            errorReport.append(Build.BRAND);
             errorReport.append(LINE_SEPARATOR);
-        }
-        String lastUpdateTime = getLastUpdateTimeAsString(context, dateFormat);
-        if (!TextUtils.isEmpty(lastUpdateTime)) {
-            errorReport.append("Updated On: ");
-            errorReport.append(lastUpdateTime);
+            errorReport.append("Device: ");
+            errorReport.append(Build.DEVICE);
             errorReport.append(LINE_SEPARATOR);
-        }
-        errorReport.append("Current Date: ");
-        errorReport.append(dateFormat.format(currentDate));
-        errorReport.append(LINE_SEPARATOR);
-        errorReport.append("\n************ ERROR LOG **************\n");
-        errorReport.append(getStackTraceFromIntent(intent));
-        errorReport.append(LINE_SEPARATOR);
-        String activityLog = getActivityLogFromIntent(intent);
-        errorReport.append(LINE_SEPARATOR);
-        if (activityLog != null) {
-            errorReport.append("\n********** USER ACTIVITIES **********\n");
-            errorReport.append("User Activities: ");
-            errorReport.append(activityLog);
+            errorReport.append("Model: ");
+            errorReport.append(Build.MODEL);
             errorReport.append(LINE_SEPARATOR);
+            errorReport.append("Manufacturer: ");
+            errorReport.append(Build.MANUFACTURER);
+            errorReport.append(LINE_SEPARATOR);
+            errorReport.append("Product: ");
+            errorReport.append(Build.PRODUCT);
+            errorReport.append(LINE_SEPARATOR);
+            errorReport.append("SDK: ");
+            errorReport.append(Build.VERSION.SDK);
+            errorReport.append(LINE_SEPARATOR);
+            errorReport.append("Release: ");
+            errorReport.append(Build.VERSION.RELEASE);
+            errorReport.append(LINE_SEPARATOR);
+            errorReport.append("\n************* APP INFO **************\n");
+            String versionName = getVersionName(context);
+            errorReport.append("Version: ");
+            errorReport.append(versionName);
+            errorReport.append(LINE_SEPARATOR);
+            Date currentDate = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+            String firstInstallTime = getFirstInstallTimeAsString(context, dateFormat);
+            if (!TextUtils.isEmpty(firstInstallTime)) {
+                errorReport.append("Installed On: ");
+                errorReport.append(firstInstallTime);
+                errorReport.append(LINE_SEPARATOR);
+            }
+            String lastUpdateTime = getLastUpdateTimeAsString(context, dateFormat);
+            if (!TextUtils.isEmpty(lastUpdateTime)) {
+                errorReport.append("Updated On: ");
+                errorReport.append(lastUpdateTime);
+                errorReport.append(LINE_SEPARATOR);
+            }
+            errorReport.append("Current Date: ");
+            errorReport.append(dateFormat.format(currentDate));
+            errorReport.append(LINE_SEPARATOR);
+            errorReport.append("\n************ ERROR LOG **************\n");
+            errorReport.append(getStackTraceFromIntent(intent));
+            errorReport.append(LINE_SEPARATOR);
+            String activityLog = getActivityLogFromIntent(intent);
+            errorReport.append(LINE_SEPARATOR);
+            if (activityLog != null) {
+                errorReport.append("\n********** USER ACTIVITIES **********\n");
+                errorReport.append("User Activities: ");
+                errorReport.append(activityLog);
+                errorReport.append(LINE_SEPARATOR);
+            }
+            errorReport.append("\n************ END OF LOG *************\n");
+            strCurrentErrorLog = errorReport.toString();
+            return strCurrentErrorLog;
+        } else {
+            return strCurrentErrorLog;
         }
-        errorReport.append("\n************ END OF LOG *************\n");
-        return errorReport.toString();
     }
 
     private String getFirstInstallTimeAsString(Context context, DateFormat dateFormat) {
