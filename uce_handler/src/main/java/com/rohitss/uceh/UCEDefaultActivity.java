@@ -217,9 +217,9 @@ public final class UCEDefaultActivity extends Activity {
         if (TextUtils.isEmpty(strCurrentErrorLog)) {
             String LINE_SEPARATOR = "\n";
             StringBuilder errorReport = new StringBuilder();
-            errorReport.append("******** UCE HANDLER Library ********");
-            errorReport.append("\n*********** by Rohit Surwase ********\n");
-            errorReport.append("\n************ DEVICE INFO ************\n");
+            errorReport.append("***** UCE HANDLER Library ");
+            errorReport.append("\n***** by Rohit Surwase \n");
+            errorReport.append("\n***** DEVICE INFO \n");
             errorReport.append("Brand: ");
             errorReport.append(Build.BRAND);
             errorReport.append(LINE_SEPARATOR);
@@ -241,7 +241,7 @@ public final class UCEDefaultActivity extends Activity {
             errorReport.append("Release: ");
             errorReport.append(Build.VERSION.RELEASE);
             errorReport.append(LINE_SEPARATOR);
-            errorReport.append("\n************* APP INFO **************\n");
+            errorReport.append("\n***** APP INFO \n");
             String versionName = getVersionName(context);
             errorReport.append("Version: ");
             errorReport.append(versionName);
@@ -263,18 +263,18 @@ public final class UCEDefaultActivity extends Activity {
             errorReport.append("Current Date: ");
             errorReport.append(dateFormat.format(currentDate));
             errorReport.append(LINE_SEPARATOR);
-            errorReport.append("\n************ ERROR LOG **************\n");
+            errorReport.append("\n***** ERROR LOG \n");
             errorReport.append(getStackTraceFromIntent(intent));
             errorReport.append(LINE_SEPARATOR);
             String activityLog = getActivityLogFromIntent(intent);
             errorReport.append(LINE_SEPARATOR);
             if (activityLog != null) {
-                errorReport.append("\n********** USER ACTIVITIES **********\n");
+                errorReport.append("\n***** USER ACTIVITIES \n");
                 errorReport.append("User Activities: ");
                 errorReport.append(activityLog);
                 errorReport.append(LINE_SEPARATOR);
             }
-            errorReport.append("\n************ END OF LOG *************\n");
+            errorReport.append("\n***** END OF LOG *****\n");
             strCurrentErrorLog = errorReport.toString();
             return strCurrentErrorLog;
         } else {

@@ -228,7 +228,7 @@ public final class UCEHandler {
     public static class Builder {
         private Context context;
         private boolean isUCEHEnabled = true;
-        private String commaSeparatedEmailAddresses = "";
+        private String commaSeparatedEmailAddresses;
         private boolean isTrackActivitiesEnabled = false;
         private boolean isBackgroundModeEnabled = true;
 
@@ -252,7 +252,7 @@ public final class UCEHandler {
         }
 
         public Builder addCommaSeparatedEmailAddresses(String commaSeparatedEmailAddresses) {
-            this.commaSeparatedEmailAddresses = commaSeparatedEmailAddresses;
+            this.commaSeparatedEmailAddresses = (commaSeparatedEmailAddresses != null) ? commaSeparatedEmailAddresses : "";
             return this;
         }
 
