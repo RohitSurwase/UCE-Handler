@@ -3,10 +3,15 @@
 # UCE Handler
 ### Android library which lets you View, Copy, Share, Save and Email Application's Crash Logs easily.
 
-<img src="https://github.com/RohitSurwase/UCE_Handler/raw/master/art/feature_screen.png" alt="Library Feature Screen"   width="200" height="350" title="Library Feature Screen" />
+<img src="https://github.com/RohitSurwase/UCE_Handler/raw/master/art/uce_handler_feature.png" alt="Library Feature Screen"   width="200" height="350" title="Library Feature Screen" />
+
+![Example Animation](https://github.com/RohitSurwase/UCE-Handler/raw/master/art/uce_handler_example.gif)
 
 ## Getting Started
 It is so easy. Just add library this to your Android project and initialize in in your Application class. You can add multiple developers' email addresses who will get the email of crash log along with the .txt file..
+
+## Example
+Download the example app [here](https://github.com/RohitSurwase/UCE-Handler/raw/master/UCE_Handler_Example.apk)
 
 ## Features
 * Andoid App lifecycle aware.
@@ -37,33 +42,35 @@ In your Project's build.gradle file:
 
 In your Application's or Module's build.gradle file:
 
-
 	dependencies {
-        compile 'com.github.RohitSurwase.UCE-Handler:uce_handler:1.0'
+	        compile 'com.github.RohitSurwase.UCE-Handler:uce_handler:1.3'
 	}
 
 In your Application class:
 * Initialize library using builder pattern.
-* Add comma separated email addresses who will receive crash logs. //optional
     
 		public class MyApplication extends Application {
-		@Override public void onCreate() { super.onCreate();
-			// Other Stuff
-			new UCEHandler.Builder(this)
-				.addCommaSeparatedEmailAddresses("abc@gmail.com, pqr@gmail.com,...)
-				.build();
+		@Override public void onCreate() { 
+			super.onCreate();
+			//... Other Stuff
+			
+			//UCE_Handler Library Initialization
+			new UCEHandler.Builder(this).build();
 		} }
 
 # Optional Parameters
 ### .setUCEHEnabled(true/false)
 //  default 'true'
-Enable/disable UCE_Handler.
+ =>  Enable/Disable UCE_Handler.
 ### .setTrackActivitiesEnabled(true/false)
 //  default 'false'
-Choose whether you want to track the flow of activities the user/tester has taken or not.
+ =>  Choose whether you want to track the flow of activities the user/tester has taken or not.
 ### .setBackgroundModeEnabled(true/false)
 //  default 'true'
-Choose if you want to catch exceptions while app is in background.
+ =>  Choose if you want to catch exceptions while app is in background.
+### .addCommaSeparatedEmailAddresses("abc@gmail.com, pqr@gmail.com,...)
+// default - empty
+ =>  Add comma separated email addresses who will receive the crash logs.
 
 ### 'Save Error Log' will work only if your app already has storage permission as library does not ask for it.
 
