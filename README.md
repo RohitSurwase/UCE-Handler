@@ -3,9 +3,8 @@
 # UCE Handler
 ### Android library which lets you View, Copy, Share, Save and Email Application's Crash Logs easily.
 
-<img src="https://github.com/RohitSurwase/UCE_Handler/raw/master/art/uce_handler_feature.png" alt="Library Feature Screen"   width="200" height="350" title="Library Feature Screen" />
+![Example Animation](https://github.com/RohitSurwase/UCE-Handler/raw/master/art/uce_feature.png)         ![Example Animation](https://github.com/RohitSurwase/UCE-Handler/raw/master/art/uce_handler_example.gif)
 
-![Example Animation](https://github.com/RohitSurwase/UCE-Handler/raw/master/art/uce_handler_example.gif)
 
 ## Getting Started
 It is so easy. Just add library this to your Android project and initialize in in your Application class. You can add multiple developers' email addresses who will get the email of crash log along with the .txt file..
