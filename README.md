@@ -1,7 +1,10 @@
-[![](https://jitpack.io/v/RohitSurwase/UCE-Handler.svg)](https://jitpack.io/#RohitSurwase/UCE-Handler) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![GitHub stars](https://img.shields.io/github/stars/RohitSurwase/UCE-Handler.svg?style=social&label=Star)](https://GitHub.com/RohitSurwase/UCE-Handler/stargazers)
+[![](https://jitpack.io/v/RohitSurwase/UCE-Handler.svg)](https://jitpack.io/#RohitSurwase/UCE-Handler) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![GitHub stars](https://img.shields.io/github/stars/RohitSurwase/UCE-Handler.svg?style=social&label=Star)](https://GitHub.com/RohitSurwase/UCE-Handler/stargazers) [![](https://jitpack.io/v/RohitSurwase/UCE-Handler/month.svg)](https://jitpack.io/#RohitSurwase/UCE-Handler) [![](https://jitpack.io/v/RohitSurwase/UCE-Handler/week.svg)](https://jitpack.io/#RohitSurwase/UCE-Handler)
 
 # UCE Handler
 ### Android library which lets you View, Copy, Share, Save and Email Application's Crash Logs easily.
+Tracking down all exceptions is the crucial part of the development. We could just expect that we have handled all exceptions. But whatever we do, we come across it with the so-called pop-up saying “Unfortunately, App has stopped”, that is why it is called uncaught-exceptions.
+
+Why you should use this library? Read the answer - [Handling Uncaught-Exceptions in Android](https://android.jlelse.eu/handling-uncaught-exceptions-in-android-d818ffb20181)
 
 ![Example Animation](https://github.com/RohitSurwase/UCE-Handler/raw/master/art/uce_feature.png)         ![Example Animation](https://github.com/RohitSurwase/UCE-Handler/raw/master/art/uce_handler_example.gif)
 
