@@ -62,6 +62,15 @@ In your Application class:
 ##### Kotlin way of initialization
 
         UCEHandler.Builder(applicationContext).build()
+	
+##### For those of you who are still using Eclipse + ADT, you need to add UCEDefaultActivity manually in your App's manifest. (As suggested by [Caceresenzo](https://github.com/RohitSurwase/UCE-Handler/issues/2#issuecomment-385262850))
+
+	<application>
+	    ...
+	    <activity
+		android:name="com.rohitss.uceh.UCEDefaultActivity"
+		android:process=":error_activity"/>
+	</application>
 
 ### Optional Parameters
 ##### .setUCEHEnabled(true/false)
