@@ -1,4 +1,6 @@
-[![](https://jitpack.io/v/RohitSurwase/UCE-Handler.svg)](https://jitpack.io/#RohitSurwase/UCE-Handler) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![GitHub stars](https://img.shields.io/github/stars/RohitSurwase/UCE-Handler.svg?style=social&label=Star)](https://GitHub.com/RohitSurwase/UCE-Handler/stargazers) [![](https://jitpack.io/v/RohitSurwase/UCE-Handler/month.svg)](https://jitpack.io/#RohitSurwase/UCE-Handler) [![](https://jitpack.io/v/RohitSurwase/UCE-Handler/week.svg)](https://jitpack.io/#RohitSurwase/UCE-Handler)
+[![](https://jitpack.io/v/RohitSurwase/UCE-Handler.svg)](https://jitpack.io/#RohitSurwase/UCE-Handler) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![GitHub stars](https://img.shields.io/github/stars/RohitSurwase/UCE-Handler.svg?style=social&label=Star)](https://GitHub.com/RohitSurwase/UCE-Handler/stargazers) 
+
+<!-- [![](https://jitpack.io/v/RohitSurwase/UCE-Handler/month.svg)](https://jitpack.io/#RohitSurwase/UCE-Handler) [![](https://jitpack.io/v/RohitSurwase/UCE-Handler/week.svg)](https://jitpack.io/#RohitSurwase/UCE-Handler) -->
 
 # UCE Handler
 ### Android library which lets you take control of Android App's uncaught exceptions. View, Copy, Share, Save and Email exceptions details including other useful info easily.
