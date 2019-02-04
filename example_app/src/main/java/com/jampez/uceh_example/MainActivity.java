@@ -1,4 +1,4 @@
-package com.rohitss.uceh_example;
+package com.jampez.uceh_example;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

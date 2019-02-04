@@ -15,11 +15,11 @@
  *  * limitations under the License.
  *
  */
-package com.rohitss.uceh_example;
+package com.jampez.uceh_example;
 
 import android.app.Application;
 
-import com.rohitss.uceh.UCEHandler;
+import com.jampez.uceh.UCEHandler;
 
 /**
  * <b></b>
@@ -33,7 +33,7 @@ public class MyApplication extends Application {
         //Initialize UCE Handler library
         new UCEHandler.Builder(getApplicationContext())
                 .setTrackActivitiesEnabled(true)
-                .addCommaSeparatedEmailAddresses("comma separated email addresses")
+                .setBackgroundModeEnabled(true)
                 .build();
     }
 }

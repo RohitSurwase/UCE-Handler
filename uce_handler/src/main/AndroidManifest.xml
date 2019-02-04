@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.rohitss.uceh">
+          package="com.jampez.uceh">
 
     <application>
         <activity
-            android:name=".UCEDefaultActivity"
+            android:name="com.jampez.uceh.UCEDefaultActivity"
             android:process=":error_activity"/>
     </application>
 

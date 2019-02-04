@@ -15,14 +15,17 @@
  *  * limitations under the License.
  *
  */
-package com.rohitss.uceh;
+package com.jampez.uceh;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import java.io.PrintWriter;
@@ -50,20 +53,47 @@ public final class UCEHandler {
     private static final int MAX_ACTIVITIES_IN_LOG = 50;
     private static final String SHARED_PREFERENCES_FILE = "uceh_preferences";
     private static final String SHARED_PREFERENCES_FIELD_TIMESTAMP = "last_crash_timestamp";
+    private static final String ASK_FOR_ERROR_LOG = "Help developers by providing error details.\nThank you for your support.";
+    private static final String COPYRIGHT_INFO = "UCE Handler courtesy of\nCopyright © 2018 Rohit Sahebrao Surwase.";
     private static final Deque<String> activityLog = new ArrayDeque<>(MAX_ACTIVITIES_IN_LOG);
     static String COMMA_SEPARATED_EMAIL_ADDRESSES;
     @SuppressLint("StaticFieldLeak")
-    private static Application application;
     private static boolean isInBackground = true;
     private static boolean isBackgroundMode;
     private static boolean isUCEHEnabled;
     private static boolean isTrackActivitiesEnabled;
+    private static boolean isDialog;
+    private static boolean canViewErrorLog;
+    private static boolean canCopyErrorLog;
+    private static boolean canShareErrorLog;
+    private static boolean canSaveErrorLog;
+    private static boolean showTitle;
+    private static int backgroundDrawable;
+    private static int backgroundColour;
+    private static int backgroundTextColour;
+    private static int buttonColour;
+    private static int buttontextColour;
+    private static String errorLogMessage;
+    private static String copyrightInfo;
     private static WeakReference<Activity> lastActivityCreated = new WeakReference<>(null);
 
-    UCEHandler(Builder builder) {
+    private UCEHandler(Builder builder) {
         isUCEHEnabled = builder.isUCEHEnabled;
         isTrackActivitiesEnabled = builder.isTrackActivitiesEnabled;
         isBackgroundMode = builder.isBackgroundModeEnabled;
+        backgroundDrawable = builder.backgroundDrawable;
+        backgroundColour = builder.backgroundColour;
+        backgroundTextColour = builder.backgroundTextColour;
+        buttonColour = builder.buttonColour;
+        buttontextColour = builder.buttonTextColour;
+        isDialog = builder.isDialog;
+        canViewErrorLog = builder.canViewErrorLog;
+        canCopyErrorLog = builder.canCopyErrorLog;
+        canShareErrorLog = builder.canShareErrorLog;
+        canSaveErrorLog = builder.canSaveErrorLog;
+        showTitle = builder.showTitle;
+        errorLogMessage = builder.errorLogMessage;
+        copyrightInfo = builder.copyrightInfo;
         COMMA_SEPARATED_EMAIL_ADDRESSES = builder.commaSeparatedEmailAddresses;
         setUCEHandler(builder.context);
     }
@@ -78,7 +108,7 @@ public final class UCEHandler {
                     if (oldHandler != null && !oldHandler.getClass().getName().startsWith(DEFAULT_HANDLER_PACKAGE_NAME)) {
                         Log.e(TAG, "You already have an UncaughtExceptionHandler. If you use a custom UncaughtExceptionHandler, it should be initialized after UCEHandler! Installing anyway, but your original handler will not be called.");
                     }
-                    application = (Application) context.getApplicationContext();
+                    final Application application = (Application) context.getApplicationContext();
                     //Setup UCE Handler.
                     Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
                         @Override
@@ -225,12 +255,104 @@ public final class UCEHandler {
         killCurrentProcess();
     }
 
+    static int getBackgroundDrawable(){
+        return backgroundDrawable;
+    }
+
+    static int getBackgroundColour(){
+        return backgroundColour;
+    }
+
+    static int getBackgroundTextColour(){
+        return backgroundTextColour;
+    }
+
+    static int getButtonColour(){
+        return buttonColour;
+    }
+
+    static int getButtonTextColour(){
+        return buttontextColour;
+    }
+
+    static boolean getShowAsDialog(){
+        return isDialog;
+    }
+
+    static boolean getShowTitle(){
+        return showTitle;
+    }
+
+    static boolean getCanViewErrorLog(){
+        return canViewErrorLog;
+    }
+
+    static boolean getCanCopyErrorLog(){
+        return canCopyErrorLog;
+    }
+
+    static boolean getCanShareErrorLog(){
+        return canShareErrorLog;
+    }
+
+    static boolean getCanSaveErrorLog(){
+        return canSaveErrorLog;
+    }
+
+    static String getErrorLogMessage(){
+        return errorLogMessage;
+    }
+
+    static String getCopyrightInfo(){
+        return copyrightInfo;
+    }
+
+    static String getCommaSeparatedEmailAddresses(){
+        return COMMA_SEPARATED_EMAIL_ADDRESSES;
+    }
+
+    @SuppressWarnings("deprecation")
+    static int getColourFromInt(Context context, int id) {
+        final int version = Build.VERSION.SDK_INT;
+        if (version >= 23)
+            return ContextCompat.getColor(context, id);
+        else
+            return context.getResources().getColor(id);
+    }
+
+    @SuppressWarnings("deprecation")
+    static Drawable getDrawableFromInt(Context context, int id) {
+        final int version = Build.VERSION.SDK_INT;
+        try {
+            if (version >= 21)
+                return ContextCompat.getDrawable(context, id);
+            else
+                return context.getResources().getDrawable(id);
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    @SuppressWarnings("unused")
     public static class Builder {
         private Context context;
         private boolean isUCEHEnabled = true;
         private String commaSeparatedEmailAddresses;
         private boolean isTrackActivitiesEnabled = false;
         private boolean isBackgroundModeEnabled = true;
+        private boolean isDialog = false;
+        private boolean canViewErrorLog = true;
+        private boolean canCopyErrorLog = true;
+        private boolean canShareErrorLog = true;
+        private boolean canSaveErrorLog = true;
+        private boolean showTitle = true;
+        private int backgroundDrawable;
+        private int backgroundColour = R.color.white;
+        private int backgroundTextColour = R.color.black;
+        private int buttonColour = R.color.black;
+        private int buttonTextColour = R.color.white;
+        private String errorLogMessage = ASK_FOR_ERROR_LOG;
+        private String copyrightInfo = COPYRIGHT_INFO;
 
         public Builder(Context context) {
             this.context = context;
@@ -248,6 +370,66 @@ public final class UCEHandler {
 
         public Builder setBackgroundModeEnabled(boolean isBackgroundModeEnabled) {
             this.isBackgroundModeEnabled = isBackgroundModeEnabled;
+            return this;
+        }
+
+        public Builder setCanViewErrorLog(boolean canViewErrorLog){
+            this.canViewErrorLog = canViewErrorLog;
+            return this;
+        }
+
+        public Builder setCanCopyErrorLog(boolean canCopyErrorLog){
+            this.canCopyErrorLog = canCopyErrorLog;
+            return this;
+        }
+
+        public Builder setCanShareErrorLog(boolean canShareErrorLog){
+            this.canShareErrorLog = canShareErrorLog;
+            return this;
+        }
+
+        public Builder setCanSaveErrorLog(boolean canSaveErrorLog){
+            this.canSaveErrorLog = canSaveErrorLog;
+            return this;
+        }
+
+        public Builder setBackgroundDrawable(int backgroundDrawable){
+            this.backgroundDrawable = backgroundDrawable;
+            return this;
+        }
+
+        public Builder setBackgroundColour(int backgroundColour){
+            this.backgroundColour = backgroundColour;
+            return this;
+        }
+
+        public Builder setBackgroundTextColour(int backgroundTextColour){
+            this.backgroundTextColour = backgroundTextColour;
+            return this;
+        }
+
+        public Builder setButtonColour(int buttonColour){
+            this.buttonColour = buttonColour;
+            return this;
+        }
+
+        public Builder setButtonTextColour(int buttonTextColour){
+            this.buttonTextColour = buttonTextColour;
+            return this;
+        }
+
+        public Builder setShowAsDialog(boolean isDialog){
+            this.isDialog = isDialog;
+            return this;
+        }
+
+        public Builder setShowTitle(boolean showTitle){
+            this.showTitle = showTitle;
+            return this;
+        }
+
+        public Builder setErrorLogMessage(String errorLogMessage){
+            this.errorLogMessage = errorLogMessage;
             return this;
         }
 

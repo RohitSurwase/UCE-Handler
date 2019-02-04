@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.rohitss.uceh_example.MainActivity">
+    tools:context="com.jampez.uceh_example.MainActivity">
 
     <Button
         android:layout_width="wrap_content"
