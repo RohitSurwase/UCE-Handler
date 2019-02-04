@@ -3,7 +3,7 @@
 <!-- [![](https://jitpack.io/v/jampez77/UCE-Handler/month.svg)](https://jitpack.io/#jampez77/UCE-Handler) [![](https://jitpack.io/v/jampez77/UCE-Handler/week.svg)](https://jitpack.io/#jampez77/UCE-Handler) -->
 
 # My Contributions
-### This is a fork of the brilliant [UCE Handler](https://github.com/RohitSurwase/UCE-Handler) by [Rohit Sahebrao Surwase](https://github.com/RohitSurwase). This is not all that different from his repo in all honesty. I have just added a few not customisable options.
+### This is a fork of the brilliant [UCE Handler](https://github.com/RohitSurwase/UCE-Handler) by [Rohit Sahebrao Surwase](https://github.com/RohitSurwase). This is not all that different from his repo in all honesty. I have just added a few customisable options.
 
 # UCE Handler
 ### Android library which lets you take control of Android App's uncaught exceptions. View, Copy, Share, Save and Email exceptions details including other useful info easily.
