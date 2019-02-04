@@ -298,7 +298,6 @@ public final class UCEDefaultActivity extends Activity {
             String LINE_SEPARATOR = "\n";
             StringBuilder errorReport = new StringBuilder();
             errorReport.append("***** UCE HANDLER Library ");
-            errorReport.append("\n***** On-trac Ltd \n");
             errorReport.append("\n***** DEVICE INFO \n");
             errorReport.append("Brand: ");
             errorReport.append(Build.BRAND);
