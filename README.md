@@ -73,7 +73,7 @@ In your Application class:
 	<application>
 	    ...
 	    <activity
-		android:name="com.rohitss.uceh.UCEDefaultActivity"
+		android:name="com.jampez.uceh.UCEDefaultActivity"
 		android:process=":error_activity"/>
 	</application>
 
