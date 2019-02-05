@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">UCE-Handler</string>
+    <string name="crash_the_app">Crash This App</string>
 </resources>

@@ -47,7 +47,7 @@ public final class UCEHandler {
     static final String EXTRA_STACK_TRACE = "EXTRA_STACK_TRACE";
     static final String EXTRA_ACTIVITY_LOG = "EXTRA_ACTIVITY_LOG";
     private final static String TAG = "UCEHandler";
-    private static final String UCE_HANDLER_PACKAGE_NAME = "com.rohitss.uceh";
+    private static final String UCE_HANDLER_PACKAGE_NAME = "com.jampez.uceh";
     private static final String DEFAULT_HANDLER_PACKAGE_NAME = "com.android.internal.os";
     private static final int MAX_STACK_TRACE_SIZE = 131071; //128 KB - 1
     private static final int MAX_ACTIVITIES_IN_LOG = 50;
@@ -72,7 +72,7 @@ public final class UCEHandler {
     private static int backgroundColour;
     private static int backgroundTextColour;
     private static int buttonColour;
-    private static int buttontextColour;
+    private static int buttonTextColour;
     private static String errorLogMessage;
     private static String copyrightInfo;
     private static WeakReference<Activity> lastActivityCreated = new WeakReference<>(null);
@@ -85,7 +85,7 @@ public final class UCEHandler {
         backgroundColour = builder.backgroundColour;
         backgroundTextColour = builder.backgroundTextColour;
         buttonColour = builder.buttonColour;
-        buttontextColour = builder.buttonTextColour;
+        buttonTextColour = builder.buttonTextColour;
         isDialog = builder.isDialog;
         canViewErrorLog = builder.canViewErrorLog;
         canCopyErrorLog = builder.canCopyErrorLog;
@@ -272,7 +272,7 @@ public final class UCEHandler {
     }
 
     static int getButtonTextColour(){
-        return buttontextColour;
+        return buttonTextColour;
     }
 
     static boolean getShowAsDialog(){
@@ -313,11 +313,15 @@ public final class UCEHandler {
 
     @SuppressWarnings("deprecation")
     static int getColourFromInt(Context context, int id) {
-        final int version = Build.VERSION.SDK_INT;
-        if (version >= 23)
-            return ContextCompat.getColor(context, id);
-        else
-            return context.getResources().getColor(id);
+        try {
+            final int version = Build.VERSION.SDK_INT;
+            if (version >= 23)
+                return ContextCompat.getColor(context, id);
+            else
+                return context.getResources().getColor(id);
+        }catch (Exception e){
+            return R.color.white;
+        }
     }
 
     @SuppressWarnings("deprecation")
@@ -333,7 +337,7 @@ public final class UCEHandler {
         }
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "UnusedReturnValue"})
     public static class Builder {
         private Context context;
         private boolean isUCEHEnabled = true;

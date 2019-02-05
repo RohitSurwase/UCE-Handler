@@ -18,7 +18,6 @@
 package com.jampez.uceh_example;
 
 import android.app.Application;
-
 import com.jampez.uceh.UCEHandler;
 
 /**
@@ -31,9 +30,9 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         //Initialize UCE Handler library
-        new UCEHandler.Builder(getApplicationContext())
-                .setTrackActivitiesEnabled(true)
-                .setBackgroundModeEnabled(true)
-                .build();
+        UCEHandler.Builder uceHandlerBuilder = new UCEHandler.Builder(getApplicationContext());
+        uceHandlerBuilder.setTrackActivitiesEnabled(true);
+        uceHandlerBuilder.setBackgroundModeEnabled(true);
+        uceHandlerBuilder.build();
     }
 }
