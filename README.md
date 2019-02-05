@@ -3,7 +3,7 @@
 <!-- [![](https://jitpack.io/v/jampez77/UCE-Handler/month.svg)](https://jitpack.io/#jampez77/UCE-Handler) [![](https://jitpack.io/v/jampez77/UCE-Handler/week.svg)](https://jitpack.io/#jampez77/UCE-Handler) -->
 
 # My Contributions
-### This is a fork of the brilliant [UCE Handler](https://github.com/RohitSurwase/UCE-Handler) by [Rohit Sahebrao Surwase](https://github.com/RohitSurwase). This is not all that different from his repo in all honesty. I have just added a few not customisable options.
+### This is a fork of the brilliant [UCE Handler](https://github.com/RohitSurwase/UCE-Handler) by [Rohit Sahebrao Surwase](https://github.com/RohitSurwase). This is not all that different from his repo in all honesty. I have just added a few customisable options.
 
 # UCE Handler
 ### Android library which lets you take control of Android App's uncaught exceptions. View, Copy, Share, Save and Email exceptions details including other useful info easily.
@@ -51,7 +51,7 @@ In your Project's build.gradle file:
 In your Application's or Module's build.gradle file:
 
 	dependencies {
-	        compile 'com.github.jampez77:UCE-Handler:uce_handler:1.4'
+	        compile 'com.github.jampez77:UCE-Handler:uce_handler:1.4.1'
 	}
 
 In your Application class:
@@ -73,7 +73,7 @@ In your Application class:
 	<application>
 	    ...
 	    <activity
-		android:name="com.rohitss.uceh.UCEDefaultActivity"
+		android:name="com.jampez.uceh.UCEDefaultActivity"
 		android:process=":error_activity"/>
 	</application>
 
