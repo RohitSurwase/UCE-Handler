@@ -51,7 +51,7 @@ In your Project's build.gradle file:
 In your Application's or Module's build.gradle file:
 
 	dependencies {
-	        compile 'com.github.jampez77:UCE-Handler:uce_handler:1.4.1'
+	        implementation 'com.github.jampez77:UCE-Handler:uce_handler:1.4.2'
 	}
 
 In your Application class:
