@@ -1,6 +1,6 @@
 /*
  *
- *  * Copyright © 2018 Rohit Sahebrao Surwase.
+ *  * Copyright © 2018-19 Rohit Sahebrao Surwase.
  *  *
  *  *    Licensed under the Apache License, Version 2.0 (the "License");
  *  *    you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -48,8 +49,6 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * <b></b>
- * <p>This class is used to </p>
  * Created by Rohit.
  */
 public final class UCEDefaultActivity extends Activity {
@@ -155,9 +154,10 @@ public final class UCEDefaultActivity extends Activity {
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, getApplicationName(UCEDefaultActivity.this) + " Application Crash Error Log");
         emailIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.email_welcome_note) + errorLog);
         if (txtFile.exists()) {
-            Uri filePath = Uri.fromFile(txtFile);
+            Uri filePath = FileProvider.getUriForFile(this, this.getApplicationContext().getPackageName() + ".provider", txtFile);
             emailIntent.putExtra(Intent.EXTRA_STREAM, filePath);
         }
+        emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivity(Intent.createChooser(emailIntent, "Email Error Log"));
     }
 
