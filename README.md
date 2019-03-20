@@ -95,5 +95,5 @@ In your Application class:
 * [**Rohit Surwase**](https://github.com/RohitSurwase) - *Initial work* - [API-Calling-Flow](https://github.com/RohitSurwase/API-Calling-Flow) , [AndroidDesignPatterns](https://github.com/RohitSurwase/AndroidDesignPatterns) , [News App Using Kotlin, MVP](https://github.com/RohitSurwase/News-Kotlin-MVP) ,  [Linkaive - Android App on Play Store](https://play.google.com/store/apps/details?id=com.rohitss.saveme)
 
 ## License
-Copyright © 2018 Rohit Sahebrao Surwase.
+Copyright © 2018 - 2019 Rohit Sahebrao Surwase.
 This project is licensed under the Apache License, Version 2.0 - see the [LICENSE.md](LICENSE.md) file for details
