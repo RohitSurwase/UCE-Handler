@@ -26,6 +26,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.FileProvider;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -227,7 +229,7 @@ public final class UCEDefaultActivity extends Activity {
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, getApplicationName(UCEDefaultActivity.this) + " Application Crash Error Log");
         emailIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.email_welcome_note) + errorLog);
         if (txtFile.exists()) {
-            Uri filePath = Uri.fromFile(txtFile);
+            Uri filePath = FileProvider.getUriForFile(this, this.getApplicationContext().getPackageName() + ".provider", txtFile);
             emailIntent.putExtra(Intent.EXTRA_STREAM, filePath);
         }
         startActivity(Intent.createChooser(emailIntent, "Email Error Log"));

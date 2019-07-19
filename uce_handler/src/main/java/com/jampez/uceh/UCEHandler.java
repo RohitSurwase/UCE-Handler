@@ -25,8 +25,10 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -112,7 +114,7 @@ public final class UCEHandler {
                     //Setup UCE Handler.
                     Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
                         @Override
-                        public void uncaughtException(Thread thread, final Throwable throwable) {
+                        public void uncaughtException(@NonNull Thread thread, final @NonNull Throwable throwable) {
                             if (isUCEHEnabled) {
                                 Log.e(TAG, "App crashed, executing UCEHandler's UncaughtExceptionHandler", throwable);
                                 if (hasCrashedInTheLastSeconds(application)) {
@@ -168,7 +170,7 @@ public final class UCEHandler {
                         int currentlyStartedActivities = 0;
 
                         @Override
-                        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                        public void onActivityCreated(@NonNull Activity activity, Bundle savedInstanceState) {
                             if (activity.getClass() != UCEDefaultActivity.class) {
                                 lastActivityCreated = new WeakReference<>(activity);
                             }
@@ -178,37 +180,37 @@ public final class UCEHandler {
                         }
 
                         @Override
-                        public void onActivityStarted(Activity activity) {
+                        public void onActivityStarted(@NonNull Activity activity) {
                             currentlyStartedActivities++;
                             isInBackground = (currentlyStartedActivities == 0);
                         }
 
                         @Override
-                        public void onActivityResumed(Activity activity) {
+                        public void onActivityResumed(@NonNull Activity activity) {
                             if (isTrackActivitiesEnabled) {
                                 activityLog.add(dateFormat.format(new Date()) + ": " + activity.getClass().getSimpleName() + " resumed\n");
                             }
                         }
 
                         @Override
-                        public void onActivityPaused(Activity activity) {
+                        public void onActivityPaused(@NonNull Activity activity) {
                             if (isTrackActivitiesEnabled) {
                                 activityLog.add(dateFormat.format(new Date()) + ": " + activity.getClass().getSimpleName() + " paused\n");
                             }
                         }
 
                         @Override
-                        public void onActivityStopped(Activity activity) {
+                        public void onActivityStopped(@NonNull Activity activity) {
                             currentlyStartedActivities--;
                             isInBackground = (currentlyStartedActivities == 0);
                         }
 
                         @Override
-                        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+                        public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
                         }
 
                         @Override
-                        public void onActivityDestroyed(Activity activity) {
+                        public void onActivityDestroyed(@NonNull Activity activity) {
                             if (isTrackActivitiesEnabled) {
                                 activityLog.add(dateFormat.format(new Date()) + ": " + activity.getClass().getSimpleName() + " destroyed\n");
                             }
