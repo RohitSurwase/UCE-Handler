@@ -51,7 +51,7 @@ In your Project's build.gradle file:
 In your Application's or Module's build.gradle file:
 
 	dependencies {
-	        implementation 'com.github.jampez77:UCE-Handler:uce_handler:1.4.3'
+	        implementation 'com.github.jampez77:UCE-Handler:uce_handler:1.4.4'
 	}
 
 In your Application class:
@@ -99,7 +99,7 @@ In your Application class:
 #### .setCanSaveErrorLog(true/false)
 // default 'true'
 => Choose if you would like 'Save Error Log' button to be shown.
-#### .setBackgroundDrawable(int drawable)
+#### .setIconDrawable(int drawable)
 // default null
 => Choose if you want an icon to be shown below the top text view.
 #### .setBackgroundColour(int color)
