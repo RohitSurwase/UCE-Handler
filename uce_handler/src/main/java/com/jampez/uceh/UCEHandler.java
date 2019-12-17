@@ -70,7 +70,7 @@ public final class UCEHandler {
     private static boolean canShareErrorLog;
     private static boolean canSaveErrorLog;
     private static boolean showTitle;
-    private static int backgroundDrawable;
+    private static int iconDrawable;
     private static int backgroundColour;
     private static int backgroundTextColour;
     private static int buttonColour;
@@ -83,7 +83,7 @@ public final class UCEHandler {
         isUCEHEnabled = builder.isUCEHEnabled;
         isTrackActivitiesEnabled = builder.isTrackActivitiesEnabled;
         isBackgroundMode = builder.isBackgroundModeEnabled;
-        backgroundDrawable = builder.backgroundDrawable;
+        iconDrawable = builder.iconDrawable;
         backgroundColour = builder.backgroundColour;
         backgroundTextColour = builder.backgroundTextColour;
         buttonColour = builder.buttonColour;
@@ -257,9 +257,17 @@ public final class UCEHandler {
         killCurrentProcess();
     }
 
+    /**
+     * Does some thing in old style.
+     *
+     * @deprecated use {@link #getIconDrawable()} instead.
+     */
+    @Deprecated
     static int getBackgroundDrawable(){
-        return backgroundDrawable;
+        return iconDrawable;
     }
+
+    static int getIconDrawable(){ return iconDrawable; }
 
     static int getBackgroundColour(){
         return backgroundColour;
@@ -352,7 +360,7 @@ public final class UCEHandler {
         private boolean canShareErrorLog = true;
         private boolean canSaveErrorLog = true;
         private boolean showTitle = true;
-        private int backgroundDrawable;
+        private int iconDrawable;
         private int backgroundColour = R.color.white;
         private int backgroundTextColour = R.color.black;
         private int buttonColour = R.color.black;
@@ -399,8 +407,19 @@ public final class UCEHandler {
             return this;
         }
 
+        /**
+         * Does some thing in old style.
+         *
+         * @deprecated use {@link #setIconDrawable(int)} instead.
+         */
+        @Deprecated
         public Builder setBackgroundDrawable(int backgroundDrawable){
-            this.backgroundDrawable = backgroundDrawable;
+            this.iconDrawable = backgroundDrawable;
+            return this;
+        }
+
+        public Builder setIconDrawable(int iconDrawable){
+            this.iconDrawable = iconDrawable;
             return this;
         }
 

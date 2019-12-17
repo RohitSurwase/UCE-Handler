@@ -32,6 +32,7 @@ public class MyApplication extends Application {
         //Initialize UCE Handler library
         UCEHandler.Builder uceHandlerBuilder = new UCEHandler.Builder(getApplicationContext());
         uceHandlerBuilder.setTrackActivitiesEnabled(true);
+        uceHandlerBuilder.setIconDrawable(R.mipmap.ic_launcher);
         uceHandlerBuilder.setBackgroundModeEnabled(true);
         uceHandlerBuilder.build();
     }

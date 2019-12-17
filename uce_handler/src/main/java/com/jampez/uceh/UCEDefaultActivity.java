@@ -39,7 +39,6 @@ import java.util.Locale;
 import static android.view.View.GONE;
 import static com.jampez.uceh.UCEHandler.closeApplication;
 import static com.jampez.uceh.UCEHandler.getBackgroundColour;
-import static com.jampez.uceh.UCEHandler.getBackgroundDrawable;
 import static com.jampez.uceh.UCEHandler.getBackgroundTextColour;
 import static com.jampez.uceh.UCEHandler.getButtonColour;
 import static com.jampez.uceh.UCEHandler.getButtonTextColour;
@@ -52,6 +51,7 @@ import static com.jampez.uceh.UCEHandler.getCommaSeparatedEmailAddresses;
 import static com.jampez.uceh.UCEHandler.getCopyrightInfo;
 import static com.jampez.uceh.UCEHandler.getDrawableFromInt;
 import static com.jampez.uceh.UCEHandler.getErrorLogMessage;
+import static com.jampez.uceh.UCEHandler.getIconDrawable;
 import static com.jampez.uceh.UCEHandler.getShowAsDialog;
 import static com.jampez.uceh.UCEHandler.getShowTitle;
 
@@ -104,7 +104,7 @@ public final class UCEDefaultActivity extends Activity {
         copyrightInfo.setText(getCopyrightInfo());
         copyrightInfo.setTextColor(getColourFromInt(getApplicationContext(), getBackgroundTextColour()));
 
-        ((ImageView)findViewById(R.id.background_image)).setImageDrawable(getDrawableFromInt(getApplicationContext(), getBackgroundDrawable()));
+        ((ImageView)findViewById(R.id.background_image)).setImageDrawable(getDrawableFromInt(getApplicationContext(), getIconDrawable()));
 
         Button viewErrorLog = findViewById(R.id.button_view_error_log);
         if(getCanViewErrorLog()) {
