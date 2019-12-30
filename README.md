@@ -6,6 +6,9 @@
 ### This is a fork of the brilliant [UCE Handler](https://github.com/RohitSurwase/UCE-Handler) by [Rohit Sahebrao Surwase](https://github.com/RohitSurwase). This is not all that different from his repo in all honesty. I have just added a few customisable options.
 
 # UCE Handler
+
+[Play Store Demo Here](https://play.google.com/store/apps/details?id=com.jampez.use_handler)
+
 ### Android library which lets you take control of Android App's uncaught exceptions. View, Copy, Share, Save and Email exceptions details including other useful info easily.
 Tracking down all exceptions is the crucial part of the development. We could just expect that we have handled all exceptions. But whatever we do, we come across it with the so-called pop-up saying “Unfortunately, App has stopped”, that is why it is called uncaught-exceptions.
 
@@ -51,7 +54,7 @@ In your Project's build.gradle file:
 In your Application's or Module's build.gradle file:
 
 	dependencies {
-	        implementation 'com.github.jampez77:UCE-Handler:uce_handler:1.4.4'
+	        api 'com.github.jampez77:UCE-Handler:uce_handler:1.4.4'
 	}
 
 In your Application class:
