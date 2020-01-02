@@ -7,7 +7,7 @@
 
 # UCE Handler
 
-[Play Store Demo Here](https://play.google.com/store/apps/details?id=com.jampez.use_handler)
+[Play Store Demo Here](https://play.google.com/store/apps/details?id=com.jampez.uce_handler)
 
 ### Android library which lets you take control of Android App's uncaught exceptions. View, Copy, Share, Save and Email exceptions details including other useful info easily.
 Tracking down all exceptions is the crucial part of the development. We could just expect that we have handled all exceptions. But whatever we do, we come across it with the so-called pop-up saying “Unfortunately, App has stopped”, that is why it is called uncaught-exceptions.
