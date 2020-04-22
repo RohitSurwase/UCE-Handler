@@ -54,18 +54,23 @@ In your Project's build.gradle file:
 In your Application's or Module's build.gradle file:
 
 	dependencies {
-	        api 'com.github.jampez77:UCE-Handler:uce_handler:1.4.4'
+	        api 'com.github.jampez77:UCE-Handler:uce_handler:1.4.5'
 	}
 
 In your Application class:
 * Initialize library using builder pattern.
     
-		public class MyApplication extends Application {
-		@Override public void onCreate() { 
-			...
-			// Initialize UCE_Handler Library
-			new UCEHandler.Builder(this).build();
-		} }
+		class MyApplication : Application() {
+            override fun onCreate() {
+                super.onCreate()
+                //Initialize UCE Handler library
+                val uceHandlerBuilder = UCEHandler.Builder(applicationContext)
+                uceHandlerBuilder.setTrackActivitiesEnabled(true)
+                uceHandlerBuilder.setIconDrawable(R.mipmap.ic_launcher)
+                uceHandlerBuilder.setBackgroundModeEnabled(true)
+                uceHandlerBuilder.build()
+            }
+        }
 
 ##### Kotlin way of initialization
 
