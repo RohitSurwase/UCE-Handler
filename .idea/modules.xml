@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/UCE-Handler.iml" filepath="$PROJECT_DIR$/.idea/UCE-Handler.iml" group="UCE-Handler" />
+      <module fileurl="file://$PROJECT_DIR$/example_app/example_app.iml" filepath="$PROJECT_DIR$/example_app/example_app.iml" group="UCE-Handler/example_app" />
+      <module fileurl="file://$PROJECT_DIR$/ignore-dummy-module/ignore-dummy-module.iml" filepath="$PROJECT_DIR$/ignore-dummy-module/ignore-dummy-module.iml" group="UCE-Handler/ignore-dummy-module" />
+      <module fileurl="file://$PROJECT_DIR$/uce_handler/uce_handler.iml" filepath="$PROJECT_DIR$/uce_handler/uce_handler.iml" group="UCE-Handler/uce_handler" />
+    </modules>
+  </component>
+</project>
