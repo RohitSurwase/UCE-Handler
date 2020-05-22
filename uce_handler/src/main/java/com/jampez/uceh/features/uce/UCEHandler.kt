@@ -1,4 +1,4 @@
-package com.jampez.uceh
+package com.jampez.uceh.features.uce
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -12,6 +12,8 @@ import android.os.Bundle
 import android.os.Process
 import android.util.Log
 import androidx.core.content.ContextCompat
+import com.jampez.uceh.R
+import com.jampez.uceh.features.github.Github
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.lang.ref.WeakReference
@@ -22,6 +24,9 @@ import kotlin.system.exitProcess
 
 @Suppress("DEPRECATION", "unused")
 class UCEHandler private constructor(builder: Builder) {
+
+
+
     class Builder(internal val context: Context) {
         internal var isUCEHEnabled = true
         internal var commaSeparatedEmailAddresses: String? = null
@@ -40,6 +45,13 @@ class UCEHandler private constructor(builder: Builder) {
         internal var buttonTextColour = R.color.white
         internal var errorLogMessage = ASK_FOR_ERROR_LOG
         internal val copyrightInfo = COPYRIGHT_INFO
+        internal var githubService: Github.Builder? = null
+
+        fun setGithubService(githubService: Github.Builder): Builder {
+            this.githubService = githubService
+            return this
+        }
+
         fun setUCEHEnabled(isUCEHEnabled: Boolean): Builder {
             this.isUCEHEnabled = isUCEHEnabled
             return this
@@ -161,7 +173,10 @@ class UCEHandler private constructor(builder: Builder) {
         var canCopyErrorLog: Boolean = false
         var canShareErrorLog: Boolean = false
         var canSaveErrorLog: Boolean = false
+        var canCreateSupportTicket: Boolean = false
+        var issueCreationMode: Github.Mode = Github.Mode.Automatic
         var showTitle: Boolean = false
+        var _githubService: Github.Builder? = null
 
         /**
          * Does some thing in old style.
@@ -357,6 +372,9 @@ class UCEHandler private constructor(builder: Builder) {
         errorLogMessage = builder.errorLogMessage
         copyrightInfo = builder.copyrightInfo
         commaSeparatedEmailAddresses = builder.commaSeparatedEmailAddresses
+        _githubService = builder.githubService
+        canCreateSupportTicket = (builder.githubService != null)
+        issueCreationMode = builder.githubService?.mode ?: Github.Mode.Automatic
         setUCEHandler(builder.context)
     }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">#212121</item>
+    <item name="colorPrimaryVariant">#000000</item>
+    <item name="colorOnPrimary">#FFFFFF</item>
+    <item name="colorSecondary">#2962FF</item>
+    <item name="colorSecondaryVariant">#0039CB</item>
+    <item name="colorOnSecondary">#FFFFFF</item>
+    <item name="colorError">#F44336</item>
+    <item name="colorOnError">#FFFFFF</item>
+    <item name="colorSurface">#FFFFFF</item>
+    <item name="colorOnSurface">#212121</item>
+    <item name="colorOnBackground">#212121</item>
+
+  </style>
+
+</resources>

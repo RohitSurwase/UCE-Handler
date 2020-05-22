@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.jampez.uceh">
+  xmlns:tools="http://schemas.android.com/tools"
+  package="com.jampez.uceh">
 
-    <application>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+      android:name=".utils.MyApplication"
+      tools:replace="android:name"
+      android:theme="@style/AppTheme">
         <activity
-            android:name=".UCEDefaultActivity"
+            android:name=".features.uce.UCEDefaultActivity"
             android:process=":error_activity"/>
 
         <provider
-            android:name=".UCEFileProvider"
+            android:name=".features.uce.UCEFileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">

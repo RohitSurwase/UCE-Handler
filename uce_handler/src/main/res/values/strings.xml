@@ -5,9 +5,13 @@
     <string name="email_welcome_note">Dear Dev Team,\n\nApplication is just crashed, please check following error log for more details.\n\n\n</string>
     <string name="copyright_info">UCE Handler\nCopyright © 2018 Rohit Sahebrao Surwase.</string>
     <string name="view_error_log">View Error Log"</string>
+    <string name="create_support_ticket">Create Support Ticket</string>
     <string name="copy_error_log">Copy Error Log</string>
     <string name="share_error_log">Share Error Log</string>
     <string name="email_error_log">Email Error Log</string>
     <string name="save_error_log">Save Error Log</string>
     <string name="close_app">Close App</string>
+
+
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>
