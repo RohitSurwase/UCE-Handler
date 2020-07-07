@@ -13,7 +13,9 @@ import android.os.Process
 import android.util.Log
 import androidx.core.content.ContextCompat
 import com.jampez.uceh.R
+import com.jampez.uceh.features.bitbucket.BitBucket
 import com.jampez.uceh.features.github.Github
+import com.jampez.uceh.utils.Mode
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.lang.ref.WeakReference
@@ -24,8 +26,6 @@ import kotlin.system.exitProcess
 
 @Suppress("DEPRECATION", "unused")
 class UCEHandler private constructor(builder: Builder) {
-
-
 
     class Builder(internal val context: Context) {
         internal var isUCEHEnabled = true
@@ -46,9 +46,27 @@ class UCEHandler private constructor(builder: Builder) {
         internal var errorLogMessage = ASK_FOR_ERROR_LOG
         internal val copyrightInfo = COPYRIGHT_INFO
         internal var githubService: Github.Builder? = null
+        internal var bitBucketService: BitBucket.Builder? = null
+        internal var issueMode: Mode = Mode.Manual
+        internal var issueButtonText: String = "Create a Support Ticket"
+
+        fun setIssueButtonText(issueButtonText: String): Builder{
+            this.issueButtonText = issueButtonText
+            return this
+        }
+
+        fun setIssueMode(issueMode: Mode): Builder {
+            this.issueMode = issueMode
+            return this
+        }
 
         fun setGithubService(githubService: Github.Builder): Builder {
             this.githubService = githubService
+            return this
+        }
+
+        fun setBitBucketService(bitBucketService: BitBucket.Builder): Builder {
+            this.bitBucketService = bitBucketService
             return this
         }
 
@@ -174,9 +192,12 @@ class UCEHandler private constructor(builder: Builder) {
         var canShareErrorLog: Boolean = false
         var canSaveErrorLog: Boolean = false
         var canCreateSupportTicket: Boolean = false
-        var issueCreationMode: Github.Mode = Github.Mode.Automatic
+        var issueCreationMode: Mode = Mode.Automatic
         var showTitle: Boolean = false
         var _githubService: Github.Builder? = null
+        var _bitBucketService: BitBucket.Builder? = null
+        var issueMode: Mode = Mode.Manual
+        var issueButtonText: String? = "Create a Support Ticket"
 
         /**
          * Does some thing in old style.
@@ -252,7 +273,7 @@ class UCEHandler private constructor(builder: Builder) {
                         application.registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
                             val dateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
                             var currentlyStartedActivities = 0
-                            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle) {
+                            override fun onActivityCreated(activity: Activity, p1: Bundle?) {
                                 if (activity.javaClass != UCEDefaultActivity::class.java) {
                                     lastActivityCreated = WeakReference(activity)
                                 }
@@ -373,8 +394,16 @@ class UCEHandler private constructor(builder: Builder) {
         copyrightInfo = builder.copyrightInfo
         commaSeparatedEmailAddresses = builder.commaSeparatedEmailAddresses
         _githubService = builder.githubService
-        canCreateSupportTicket = (builder.githubService != null)
-        issueCreationMode = builder.githubService?.mode ?: Github.Mode.Automatic
+        _bitBucketService = builder.bitBucketService
+        canCreateSupportTicket = (builder.githubService != null || builder.bitBucketService != null)
+        if(builder.githubService != null) {
+            builder.githubService!!.mode = issueMode
+            issueCreationMode =  builder.githubService?.mode ?: Mode.Automatic
+        }else if(builder.bitBucketService != null){
+            builder.bitBucketService!!.mode = issueMode
+            issueCreationMode =  builder.bitBucketService?.mode ?: Mode.Automatic
+        }
+        issueButtonText = builder.issueButtonText
         setUCEHandler(builder.context)
     }
 }

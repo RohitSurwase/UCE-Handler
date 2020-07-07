@@ -11,7 +11,7 @@
     <string name="email_error_log">Email Error Log</string>
     <string name="save_error_log">Save Error Log</string>
     <string name="close_app">Close App</string>
-
+    <string name="ticket_number">BB123GH212</string>
 
     <string name="something_went_wrong">Something went wrong</string>
 </resources>

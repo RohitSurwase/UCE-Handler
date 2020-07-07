@@ -1,8 +1,10 @@
 package com.jampez.uceh_example
 
 import android.app.Application
+import com.jampez.uceh.features.bitbucket.BitBucket
 import com.jampez.uceh.features.github.Github
 import com.jampez.uceh.features.uce.UCEHandler
+import com.jampez.uceh.utils.Mode
 
 class MyApplication : Application() {
     override fun onCreate() {
@@ -16,12 +18,18 @@ class MyApplication : Application() {
         uceHandlerBuilder.setCanCopyErrorLog(false)
         uceHandlerBuilder.setCanShareErrorLog(false)
         uceHandlerBuilder.setCanSaveErrorLog(false)
+        uceHandlerBuilder.setIssueMode(Mode.Manual)
+        uceHandlerBuilder.setIssueButtonText("Create a Support Ticket")
         uceHandlerBuilder.setGithubService(Github.Builder()
-                .setAccessToken("d786ba38971a472f38f6d7fbd40b6c7453506b4c")
+                .setAccessToken("c1510626614c54859a3af2a30cf486e20f0c025c")
                 .setRepoName("UCE-Handler")
                 .setUsername("jampez77")
-                .setButtonText("Create a Support Ticket")
-                .setMode(Github.Mode.Manual)
+        )
+        uceHandlerBuilder.setBitBucketService(BitBucket.Builder()
+                .setUsername("jampez77_")
+                .setAppPassword("t78b8AjfrGxYWwA3gRre")
+                .setProjectName("metro-times-android")
+                .setRepoName("metrotimes")
         )
         uceHandlerBuilder.build()
     }

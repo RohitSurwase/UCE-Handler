@@ -11,8 +11,10 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
+import androidx.lifecycle.MutableLiveData
 import com.jampez.uceh.R
-import com.jampez.uceh.features.github.Github
+import com.jampez.uceh.features.bitbucket.Content
+import com.jampez.uceh.utils.Mode
 import com.jampez.uceh.utils.getColorCompat
 import com.jampez.uceh.utils.getDrawableCompat
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -26,6 +28,7 @@ import java.util.*
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private var strCurrentErrorLog: String? = null
+    private var ticketNumber = MutableLiveData<String>()
 
     private val viewModel: UCEViewModel by viewModel()
 
@@ -39,25 +42,30 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         background_image.setImageDrawable(context?.getDrawableCompat(UCEHandler.iconDrawable)!!)
 
+        ticketNumber.postValue("")
+        ticketNumber.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            support_ticket_number.text = it
+        })
+
         //make sure we have a service
         if(UCEHandler.canCreateSupportTicket) {
 
             //set any button text, implement click listener for manual mode
             //and update visible UI elements
             //otherwise post issue right away
-            if(UCEHandler.issueCreationMode == Github.Mode.Manual){
+            if(UCEHandler.issueCreationMode == Mode.Manual){
                 button_create_support_ticket.visibility = VISIBLE
                 support_ticket_request_progress.visibility = INVISIBLE
 
-                if(UCEHandler._githubService!!.buttonText != ""){
-                    button_create_support_ticket.text = UCEHandler._githubService!!.buttonText
+                if(UCEHandler.issueButtonText != ""){
+                    button_create_support_ticket.text = UCEHandler.issueButtonText
                 }
 
                 button_create_support_ticket.setOnClickListener {
-                    postGithubIssue()
+                    postIssueService()
                 }
             } else {
-                postGithubIssue()
+                postIssueService()
             }
 
         }
@@ -73,10 +81,44 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
+    private fun postBitBucketIssue(){
+        if(context != null){
+            val content = Content(
+                raw = getAllErrorDetailsFromIntent()
+            )
+            viewModel.postBitBucketIssue(content).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                Log.d("bitbucket response", it.data.toString())
+
+                var responseText = "There was an issue creating the issue"
+                val type = it.data?.type
+                responseText = "$responseText: \n$type"
+                if(type == "issue"){
+                    val supportTickerNumber = it.data.id
+                    val supportTicketTitle = it.data.title
+
+                    ticketNumber.postValue(ticketNumber.value + "BB$supportTickerNumber")
+
+                    responseText = "$supportTicketTitle " +
+                            "\n\nSorry about that! " +
+                            "\n\nYour support ticket number is below." +
+                            "\n\nPlease use this when talking to our support team about this issue."
+
+                }
+
+                postIssueEndUI(responseText)
+            })
+        }
+    }
+
+    private fun postIssueService(){
+        postIssueStartUI()
+        if(UCEHandler._githubService != null){
+            postGithubIssue()
+        }
+    }
+
     private fun postGithubIssue(){
         if(context != null){
-            button_create_support_ticket.visibility = INVISIBLE
-            support_ticket_request_progress.visibility = VISIBLE
 
             viewModel.postGithubIssue(getAllErrorDetailsFromIntent()).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 Log.d("github response", it.data.toString())
@@ -88,19 +130,34 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     val supportTickerNumber = it.data?.number
                     val supportTicketTitle = it.data?.title
 
+                    ticketNumber.postValue(ticketNumber.value + "GH$supportTickerNumber")
+
                     responseText = "$supportTicketTitle " +
                             "\n\nSorry about that! " +
-                            "\n\nYour support ticket number is: $supportTickerNumber\n\n" +
-                            "Please use this when talking to our support team about this issue."
+                            "\n\nYour support ticket number is below." +
+                            "\n\nPlease use this when talking to our support team about this issue."
 
                 }
 
-                support_ticket_response.text = responseText
-                support_ticket_response.visibility = VISIBLE
-                button_create_support_ticket.visibility = INVISIBLE
-                support_ticket_request_progress.visibility = INVISIBLE
+                if(UCEHandler._bitBucketService != null){
+                    postBitBucketIssue()
+                }else{
+                    postIssueEndUI(responseText)
+                }
             })
         }
+    }
+
+    private fun postIssueStartUI(){
+        button_create_support_ticket.visibility = INVISIBLE
+        support_ticket_request_progress.visibility = VISIBLE
+    }
+
+    private fun postIssueEndUI(responseText: String){
+        support_ticket_response.text = responseText
+        support_ticket_text_layout.visibility = VISIBLE
+        button_create_support_ticket.visibility = INVISIBLE
+        support_ticket_request_progress.visibility = INVISIBLE
     }
 
     private fun getAllErrorDetailsFromIntent(): String? {

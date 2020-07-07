@@ -7,6 +7,10 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import androidx.core.content.ContextCompat
 
+enum class Mode {
+    Automatic, Manual
+}
+
 @Suppress("DEPRECATION")
 fun Context.getDrawableCompat(id: Int): Drawable?{
     return if (Build.VERSION.SDK_INT >= 21) {

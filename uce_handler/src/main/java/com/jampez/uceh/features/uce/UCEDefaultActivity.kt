@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import com.jampez.uceh.R
-import com.jampez.uceh.data.modules.githubModule
+import com.jampez.uceh.features.supportissue.supportIssueModule
 import com.jampez.uceh.data.modules.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -23,7 +23,7 @@ class UCEDefaultActivity : AppCompatActivity(){
             modules(
                     modules = listOf(
                             viewModelModule,
-                            githubModule
+                            supportIssueModule
                     )
             )
         }

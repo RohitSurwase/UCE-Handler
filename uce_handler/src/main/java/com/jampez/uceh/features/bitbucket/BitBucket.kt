@@ -1,19 +1,21 @@
-package com.jampez.uceh.features.github
+package com.jampez.uceh.features.bitbucket
 
 import com.jampez.uceh.utils.Mode
 
-class Github private constructor(builder: Builder)  {
+class BitBucket private constructor(builder: Builder)  {
 
     companion object{
         var repoName = ""
         var userName = ""
-        var accessToken = ""
+        var projectName = ""
+        var appPassword = ""
     }
 
     class Builder{
         internal var repoName = ""
         internal var userName = ""
-        internal var accessToken = ""
+        internal var projectName = ""
+        internal var appPassword = ""
         internal var mode = Mode.Automatic
 
         fun setRepoName(repoName: String) : Builder {
@@ -26,13 +28,18 @@ class Github private constructor(builder: Builder)  {
             return this
         }
 
-        fun setAccessToken(accessToken: String) : Builder {
-            this.accessToken = accessToken
+        fun setProjectName(projectName: String) : Builder {
+            this.projectName = projectName
             return this
         }
 
-        fun build(): Github {
-            return Github(this)
+        fun setAppPassword(appPassword: String) : Builder {
+            this.appPassword = appPassword
+            return this
+        }
+
+        fun build(): BitBucket {
+            return BitBucket(this)
         }
     }
 
@@ -40,6 +47,7 @@ class Github private constructor(builder: Builder)  {
     init {
         repoName = builder.repoName
         userName = builder.userName
-        accessToken = builder.accessToken
+        projectName = builder.projectName
+        appPassword = builder.appPassword
     }
 }
