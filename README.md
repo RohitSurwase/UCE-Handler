@@ -3,26 +3,44 @@
 <!-- [![](https://jitpack.io/v/jampez77/UCE-Handler/month.svg)](https://jitpack.io/#jampez77/UCE-Handler) [![](https://jitpack.io/v/jampez77/UCE-Handler/week.svg)](https://jitpack.io/#jampez77/UCE-Handler) -->
 
 # My Contributions
-### This is a fork of the brilliant [UCE Handler](https://github.com/RohitSurwase/UCE-Handler) by [Rohit Sahebrao Surwase](https://github.com/RohitSurwase). This is not all that different from his repo in all honesty. I have just added a few customisable options.
+### This is a fork of the brilliant [UCE Handler](https://github.com/RohitSurwase/UCE-Handler) by [Rohit Sahebrao Surwase](https://github.com/RohitSurwase). 
 
 # UCE Handler
 
-[Play Store Demo Here](https://play.google.com/store/apps/details?id=com.jampez.uce_handler)
+[Play Store Demo Here](https://play.google.com/store/apps/details?id=com.jampez.uce_handler) (All crashes from the example app can be seen [here](https://github.com/jampez77/UCE-Handler/issues))
+![Example Animation](https://github.com/jampez77/UCE-Handler/raw/master/art/uce_feature.png) 
 
-### Android library which lets you take control of Android App's uncaught exceptions. View, Copy, Share, Save and Email exceptions details including other useful info easily.
+### Android library which lets you take control of Android App's uncaught exceptions. View, Copy or Share exceptions details including other useful info easily.
 Tracking down all exceptions is the crucial part of the development. We could just expect that we have handled all exceptions. But whatever we do, we come across it with the so-called pop-up saying “Unfortunately, App has stopped”, that is why it is called uncaught-exceptions.
 
-Why should you use this library? Read the answer - [Handling Uncaught-Exceptions in Android](https://android.jlelse.eu/handling-uncaught-exceptions-in-android-d818ffb20181)
+### Generate support tickets for your project in GitHub, GitLab or BitBucket (or all 3 of them!!)
+Fully integrate with your source control and get crashes reported directly to the issues board or a GitHub, GitLab or BitBucket project. The shown the issue number, linking them to the specific crash. So no more searching through crash logs trying to locate a user specific issue.
 
-![Example Animation](https://github.com/jampez77/UCE-Handler/raw/master/art/uce_feature.png)         ![Example Animation](https://github.com/jampez77/UCE-Handler/raw/master/art/uce_handler_example.gif)
+[See Example Crash Log](https://github.com/jampez77/UCE-Handler/issues/16)
+
+![GitHub Logo](https://github.com/jampez77/UCE-Handler/raw/master/art/github-icon.png)  
+Seamlessly integrate with your GitHub project with the `setGithubService` method. All you need is your `Username`, `Repository Name` and a `[Personal Access Token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)`.
+
+![BitBucket Logo](https://github.com/jampez77/UCE-Handler/raw/master/art/bitbucket-icon.png)  
+Integrating with a BitBucket project is just as easy. When using the `setBitBucketService` method you will need to include your `Username`, `Project Name`, `Repository Name` and an `[App Password](https://support.atlassian.com/bitbucket-cloud/docs/app-passwords/)`
+
+![GitLab Logo](https://github.com/jampez77/UCE-Handler/raw/master/art/gitlab-icon.png) 
+It's even easier to integrate with a GitLab project, this can be done by using the `setGitLabService` method and including your `Project ID` & `[Access Token](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html)`
+
+### Highly Customisable 
+Change the colour scheme, text, and icons to suit you and make UCE-Handler look like any other part of your app.
+![Customisable Options](https://github.com/jampez77/UCE-Handler/raw/master/art/customise_options.png) 
+
+
+![Example Animation](https://github.com/jampez77/UCE-Handler/raw/master/art/uce_handler_example.gif)
 
 
 ## Features
 * Android App lifecycle aware.
 * Catches all uncaught exceptions gracefully.
 * Displays separate screen with multiple options whenever an App crashes.
-* View, Copy, Share, and Save crash logs easily.
-* Email crash log along with the .txt file with multiple developers/receipients.
+* View, Copy & Share crash logs easily.
+* Easily send crash logs directly to a GitHub, GitLab or BitBucket project!
 * Completely close the crashed/unstable Application.
 
 ## Logged Information
@@ -34,12 +52,8 @@ Why should you use this library? Read the answer - [Handling Uncaught-Exceptions
 
 ### Each Log file is named upon App's name so you can identify and distinguish files easily if you have added this library in multiple projects/applications.
 
-
-## Example
-Download the example app [here](https://github.com/jampez77/UCE-Handler/raw/master/UCE_Handler_Example.apk)
-
 ## Getting Started
-Add this library to your Android project and initialize it in your Application class. Additionaly you can add developer's email addresses who will get the email of crash log along with the .txt file attached.
+Add this library to your Android project and initialize it in your Application class.
 
 # Setup
 In your Project's build.gradle file:
@@ -54,7 +68,7 @@ In your Project's build.gradle file:
 In your Application's or Module's build.gradle file:
 
 	dependencies {
-	        api 'com.github.jampez77:UCE-Handler:1.4.6'
+	        api 'com.github.jampez77:UCE-Handler:2.0.0'
 	}
 
 In your Application class:
@@ -68,6 +82,22 @@ In your Application class:
                 uceHandlerBuilder.setTrackActivitiesEnabled(true)
                 uceHandlerBuilder.setIconDrawable(R.mipmap.ic_launcher)
                 uceHandlerBuilder.setBackgroundModeEnabled(true)
+                uceHandlerBuilder.setIssueMode(Mode.Manual)
+                uceHandlerBuilder.setGithubService(Github.Builder()
+                       .setAccessToken("<< github access token >>")
+                       .setRepoName("<< repo name >>")
+                       .setUsername("<< username >>")
+                )
+                uceHandlerBuilder.setBitBucketService(BitBucket.Builder()
+                       .setUsername("<< username >>")
+                       .setAppPassword("<< app password >>")
+                       .setProjectName("<< project name >>")
+                       .setRepoName("<< repo name >>")
+                )
+                uceHandlerBuilder.setGitLabService(GitLab.Builder()
+                       .setAccessToken("<< access token >>")
+                       .setProjectID("<< project id >>")
+                )
                 uceHandlerBuilder.build()
             }
         }
@@ -98,15 +128,9 @@ In your Application class:
 #### .setCanViewErrorLog(true/false)
 // default 'true'
 => Choose if you would like 'View Error Log' button to be shown.
-#### .setCanCopyErrorLog(true/false)
-// default 'true'
-=> Choose if you would like 'Copy Error Log' button to be shown.
 #### .setCanShareErrorLog(true/false)
 // default 'true'
 => Choose if you would like 'Share Error Log' button to be shown.
-#### .setCanSaveErrorLog(true/false)
-// default 'true'
-=> Choose if you would like 'Save Error Log' button to be shown.
 #### .setIconDrawable(int drawable)
 // default null
 => Choose if you want an icon to be shown below the top text view.
@@ -122,24 +146,30 @@ In your Application class:
 #### .setButtonTextColour(int color)
 // default white
 => Choose if you want to change the buttons text colour.
-#### .setShowAsDialog(true/false)
-// default false
-=> Choose if you want the layout to be shown in a dialog or a fullscreen.
-#### .setShowTitle(true/false)
-// default true
-=> Choose if you want the main title to be shown.
 #### .setErrorLogMessage(string)
 // default "Help developers by providing error details. Thank you for your support."
 => Set the text shown in the upper TextView
-##### .addCommaSeparatedEmailAddresses("abc@gmail.com, pqr@gmail.com,...)
-// default - empty
- =>  Add comma separated email addresses who will receive the crash logs. 'Email Error Log' button will be hidden if this is not called.
+### .setIssueMode(Mode)
+// default manual
+=> Choose is support tickets should be set manually or automatically
+### .setIssueButtonText(string)
+// default "Create a Support Ticket"
+=> define text shown in support ticket button (only shows in manual mode)
+### .setGithubService(Github.Builder)
+// default null
+=> defines a GitHub integration with `Access Token`, `Repo Name` & `Username`
+### .setBitBucketService(BitBucket.Builder)
+// default null
+=> defines a BitBucket integration with `Username`, `App Password`, `Project Name` & `Repo Name`
+### .setGitLabService(GitLab.Builder)
+// default null
+=> defines a GitLab integration with `Access Token` & `Project ID`
 
 #### 'Save Error Log' will work only if your app already has storage permission as library does not ask for it.
 
 ## Authors & Contributers
-* [**Jamie Pezone**](https://github.com/jampez77)
-* [**Rohit Surwase**](https://github.com/RohitSurwase) - *Initial work* - [API-Calling-Flow](https://github.com/RohitSurwase/API-Calling-Flow) , [AndroidDesignPatterns](https://github.com/RohitSurwase/AndroidDesignPatterns) , [News App Using Kotlin, MVP](https://github.com/RohitSurwase/News-Kotlin-MVP) ,  [Linkaive - Android App on Play Store](https://play.google.com/store/apps/details?id=com.rohitss.saveme)
+* [**Jamie Pezone**](https://github.com/jampez77) - *Github / Bitbucket / GitLab Integration*
+* [**Rohit Surwase**](https://github.com/RohitSurwase) - *Initial work* 
 
 ## License
 Copyright © 2018 Rohit Sahebrao Surwase.

@@ -16,7 +16,6 @@ import com.jampez.uceh.R
 import com.jampez.uceh.features.bitbucket.BitBucket
 import com.jampez.uceh.features.github.Github
 import com.jampez.uceh.features.gitlab.GitLab
-import com.jampez.uceh.features.gitlab.GitLabService
 import com.jampez.uceh.utils.Mode
 import java.io.PrintWriter
 import java.io.StringWriter
@@ -31,22 +30,16 @@ class UCEHandler private constructor(builder: Builder) {
 
     class Builder(internal val context: Context) {
         internal var isUCEHEnabled = true
-        internal var commaSeparatedEmailAddresses: String? = null
         internal var isTrackActivitiesEnabled = false
         internal var isBackgroundModeEnabled = true
-        internal var isDialog = false
         internal var canViewErrorLog = true
-        internal var canCopyErrorLog = true
         internal var canShareErrorLog = true
-        internal var canSaveErrorLog = true
-        internal var showTitle = true
         internal var iconDrawable = 0
         internal var backgroundColour = R.color.white
         internal var backgroundTextColour = R.color.black
         internal var buttonColour = R.color.black
         internal var buttonTextColour = R.color.white
-        internal var errorLogMessage = ASK_FOR_ERROR_LOG
-        internal val copyrightInfo = COPYRIGHT_INFO
+        internal var errorLogMessage = ""
         internal var githubService: Github.Builder? = null
         internal var bitBucketService: BitBucket.Builder? = null
         internal var gitlabService: GitLab.Builder? = null
@@ -98,28 +91,8 @@ class UCEHandler private constructor(builder: Builder) {
             return this
         }
 
-        fun setCanCopyErrorLog(canCopyErrorLog: Boolean): Builder {
-            this.canCopyErrorLog = canCopyErrorLog
-            return this
-        }
-
         fun setCanShareErrorLog(canShareErrorLog: Boolean): Builder {
             this.canShareErrorLog = canShareErrorLog
-            return this
-        }
-
-        fun setCanSaveErrorLog(canSaveErrorLog: Boolean): Builder {
-            this.canSaveErrorLog = canSaveErrorLog
-            return this
-        }
-
-        /**
-         * Does some thing in old style.
-         *
-         */
-        @Deprecated("use {@link #setIconDrawable(int)} instead.")
-        fun setBackgroundDrawable(backgroundDrawable: Int): Builder {
-            iconDrawable = backgroundDrawable
             return this
         }
 
@@ -148,23 +121,8 @@ class UCEHandler private constructor(builder: Builder) {
             return this
         }
 
-        fun setShowAsDialog(isDialog: Boolean): Builder {
-            this.isDialog = isDialog
-            return this
-        }
-
-        fun setShowTitle(showTitle: Boolean): Builder {
-            this.showTitle = showTitle
-            return this
-        }
-
         fun setErrorLogMessage(errorLogMessage: String): Builder {
             this.errorLogMessage = errorLogMessage
-            return this
-        }
-
-        fun addCommaSeparatedEmailAddresses(commaSeparatedEmailAddresses: String?): Builder {
-            this.commaSeparatedEmailAddresses = commaSeparatedEmailAddresses ?: ""
             return this
         }
 
@@ -184,8 +142,6 @@ class UCEHandler private constructor(builder: Builder) {
         private const val MAX_ACTIVITIES_IN_LOG = 50
         private const val SHARED_PREFERENCES_FILE = "uceh_preferences"
         private const val SHARED_PREFERENCES_FIELD_TIMESTAMP = "last_crash_timestamp"
-        private const val ASK_FOR_ERROR_LOG = "Help developers by providing error details.\nThank you for your support."
-        private const val COPYRIGHT_INFO = "UCE Handler courtesy of\nCopyright © 2018 Rohit Sahebrao Surwase."
         private val activityLog: Deque<String> = ArrayDeque(MAX_ACTIVITIES_IN_LOG)
         var commaSeparatedEmailAddresses: String? = null
 
@@ -194,14 +150,10 @@ class UCEHandler private constructor(builder: Builder) {
         private var isBackgroundMode: Boolean = false
         private var isUCEHEnabled: Boolean = false
         private var isTrackActivitiesEnabled: Boolean = false
-        var showAsDialog: Boolean = false
         var canViewErrorLog: Boolean = false
-        var canCopyErrorLog: Boolean = false
         var canShareErrorLog: Boolean = false
-        var canSaveErrorLog: Boolean = false
         var canCreateSupportTicket: Boolean = false
         var issueCreationMode: Mode = Mode.Automatic
-        var showTitle: Boolean = false
         var _githubService: Github.Builder? = null
         var _bitBucketService: BitBucket.Builder? = null
         var _gitLabService: GitLab.Builder? = null
@@ -218,7 +170,6 @@ class UCEHandler private constructor(builder: Builder) {
         var buttonColour: Int = 0
         var buttonTextColour: Int = 0
         var errorLogMessage: String = ""
-        var copyrightInfo: String = ""
         private var lastActivityCreated = WeakReference<Activity?>(null)
         private fun setUCEHandler(context: Context?) {
             try {
@@ -393,15 +344,9 @@ class UCEHandler private constructor(builder: Builder) {
         backgroundTextColour = builder.backgroundTextColour
         buttonColour = builder.buttonColour
         buttonTextColour = builder.buttonTextColour
-        showAsDialog = builder.isDialog
         canViewErrorLog = builder.canViewErrorLog
-        canCopyErrorLog = builder.canCopyErrorLog
         canShareErrorLog = builder.canShareErrorLog
-        canSaveErrorLog = builder.canSaveErrorLog
-        showTitle = builder.showTitle
         errorLogMessage = builder.errorLogMessage
-        copyrightInfo = builder.copyrightInfo
-        commaSeparatedEmailAddresses = builder.commaSeparatedEmailAddresses
         _githubService = builder.githubService
         _bitBucketService = builder.bitBucketService
         _gitLabService = builder.gitlabService
@@ -410,7 +355,6 @@ class UCEHandler private constructor(builder: Builder) {
         if(canCreateSupportTicket) {
             issueCreationMode =  builder.issueMode
         }
-
 
         issueButtonText = builder.issueButtonText
         setUCEHandler(builder.context)

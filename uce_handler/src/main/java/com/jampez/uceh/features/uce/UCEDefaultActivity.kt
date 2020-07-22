@@ -2,8 +2,6 @@ package com.jampez.uceh.features.uce
 
 import android.os.Build
 import android.os.Bundle
-import android.view.ViewGroup
-import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import com.jampez.uceh.R
 import com.jampez.uceh.features.supportissue.supportIssueModule
@@ -29,19 +27,9 @@ class UCEDefaultActivity : AppCompatActivity(){
         }
 
         if (Build.VERSION.SDK_INT > 21)
-            setTheme(android.R.style.Theme_Material) else setTheme(android.R.style.Theme)
-
-        if (UCEHandler.showAsDialog) {
-            if (Build.VERSION.SDK_INT > 21)
-                setTheme(android.R.style.Theme_Material_Dialog) else setTheme(android.R.style.Theme_Dialog)
-            setFinishOnTouchOutside(false)
-        }
-
-        if (!UCEHandler.showTitle)
-            requestWindowFeature(Window.FEATURE_NO_TITLE)
-
-        if (UCEHandler.showAsDialog)
-            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            setTheme(android.R.style.Theme_Material)
+        else
+            setTheme(android.R.style.Theme)
 
         setContentView(R.layout.default_error_activity)
     }

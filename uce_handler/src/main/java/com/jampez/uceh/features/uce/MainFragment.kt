@@ -40,7 +40,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         main_layout.setBackgroundColor(context?.getColorCompat(UCEHandler.backgroundColour)!!)
         title.setTextColor(context?.getColorCompat(UCEHandler.backgroundTextColour)!!)
 
-        subtitle.text = UCEHandler.errorLogMessage
+        if(UCEHandler.errorLogMessage.isNotEmpty()){
+            subtitle.text = UCEHandler.errorLogMessage
+        }
         subtitle.setTextColor(context?.getColorCompat(UCEHandler.backgroundTextColour)!!)
 
         background_image.setImageDrawable(context?.getDrawableCompat(UCEHandler.iconDrawable)!!)
@@ -73,20 +75,27 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         }
 
-        button_view_error_log.setTextColor(context?.getColorCompat(UCEHandler.buttonTextColour)!!)
-        button_view_error_log.setBackgroundColor(context?.getColorCompat(UCEHandler.buttonColour)!!)
-        button_view_error_log.setOnClickListener { AlertDialog.Builder(context)
-                .setTitle("Error Log")
-                .setMessage(getAllErrorDetailsFromIntent())
-                .setNeutralButton("Close") { dialog, _ -> dialog.dismiss() }
-                .setPositiveButton("Share") { _: DialogInterface?, _: Int ->
+        if(UCEHandler.canViewErrorLog){
+            button_view_error_log.visibility = VISIBLE
+            button_view_error_log.setTextColor(context?.getColorCompat(UCEHandler.buttonTextColour)!!)
+            button_view_error_log.setBackgroundColor(context?.getColorCompat(UCEHandler.buttonColour)!!)
+
+            val alertDialog = AlertDialog.Builder(context)
+            alertDialog.setTitle("Error Log")
+            alertDialog.setMessage(getAllErrorDetailsFromIntent())
+            alertDialog.setNeutralButton("Close") { dialog, _ -> dialog.dismiss() }
+
+            if(UCEHandler.canShareErrorLog){
+                alertDialog.setPositiveButton("Share") { _: DialogInterface?, _: Int ->
                     val intent= Intent()
                     intent.action = Intent.ACTION_SEND
                     intent.putExtra(Intent.EXTRA_TEXT, getAllErrorDetailsFromIntent())
                     intent.type = "text/plain"
                     startActivity(Intent.createChooser(intent,"Share To:"))
-                 }
-                .show()
+                }
+            }
+
+            button_view_error_log.setOnClickListener { alertDialog.show() }
         }
     }
 
