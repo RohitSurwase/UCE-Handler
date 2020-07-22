@@ -3,7 +3,6 @@
     <string name="unexpected_error">An unexpected error has occurred</string>
     <string name="ask_for_error_log">Help developers by providing error details.\nThank you for your support.</string>
     <string name="email_welcome_note">Dear Dev Team,\n\nApplication is just crashed, please check following error log for more details.\n\n\n</string>
-    <string name="copyright_info">UCE Handler\nCopyright © 2018 Rohit Sahebrao Surwase.</string>
     <string name="view_error_log">View Error Log"</string>
     <string name="create_support_ticket">Create Support Ticket</string>
     <string name="copy_error_log">Copy Error Log</string>
