@@ -18,18 +18,18 @@ Fully integrate with your source control and get crashes reported directly to th
 
 [See Example Crash Log](https://github.com/jampez77/UCE-Handler/issues/16)
 
-![GitHub Logo](https://github.com/jampez77/UCE-Handler/raw/master/art/github-icon.png)  
+![GitHub Logo](https://github.com/jampez77/UCE-Handler/raw/master/art/github_icon.png)  
 Seamlessly integrate with your GitHub project with the `setGithubService` method. All you need is your `Username`, `Repository Name` and a [Personal Access Token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
 
-![BitBucket Logo](https://github.com/jampez77/UCE-Handler/raw/master/art/bitbucket-icon.png)  
+![BitBucket Logo](https://github.com/jampez77/UCE-Handler/raw/master/art/bitbucket_icon.png)  
 Integrating with a BitBucket project is just as easy. When using the `setBitBucketService` method you will need to include your `Username`, `Project Name`, `Repository Name` and an [App Password](https://support.atlassian.com/bitbucket-cloud/docs/app-passwords/)
 
-![GitLab Logo](https://github.com/jampez77/UCE-Handler/raw/master/art/gitlab-icon.png) 
+![GitLab Logo](https://github.com/jampez77/UCE-Handler/raw/master/art/gitlab_icon.png) 
 It's even easier to integrate with a GitLab project, this can be done by using the `setGitLabService` method and including your `Project ID` & [Access Token](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html)
 
 ### Highly Customisable 
 Change the colour scheme, text, and icons to suit you and make UCE-Handler look like any other part of your app.
-![Customisable Options](https://github.com/jampez77/UCE-Handler/raw/master/art/customise_options.png) 
+![Customisable Options](https://github.com/jampez77/UCE-Handler/raw/master/art/customise-options.png) 
 
 
 ![Example Animation](https://github.com/jampez77/UCE-Handler/raw/master/art/uce_example.gif)
