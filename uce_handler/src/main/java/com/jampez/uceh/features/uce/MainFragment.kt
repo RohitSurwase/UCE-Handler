@@ -1,6 +1,7 @@
 package com.jampez.uceh.features.uce
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -33,6 +34,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private val viewModel: UCEViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
+
+        (activity as UCEDefaultActivity).actionBar?.hide()
 
         main_layout.setBackgroundColor(context?.getColorCompat(UCEHandler.backgroundColour)!!)
         title.setTextColor(context?.getColorCompat(UCEHandler.backgroundTextColour)!!)
@@ -75,45 +78,25 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         button_view_error_log.setOnClickListener { AlertDialog.Builder(context)
                 .setTitle("Error Log")
                 .setMessage(getAllErrorDetailsFromIntent())
-                .setNeutralButton("Close"
-                ) { dialog, _ -> dialog.dismiss() }
+                .setNeutralButton("Close") { dialog, _ -> dialog.dismiss() }
+                .setPositiveButton("Share") { _: DialogInterface?, _: Int ->
+                    val intent= Intent()
+                    intent.action = Intent.ACTION_SEND
+                    intent.putExtra(Intent.EXTRA_TEXT, getAllErrorDetailsFromIntent())
+                    intent.type = "text/plain"
+                    startActivity(Intent.createChooser(intent,"Share To:"))
+                 }
                 .show()
-        }
-    }
-
-    private fun postBitBucketIssue(){
-        if(context != null){
-            val content = Content(
-                raw = getAllErrorDetailsFromIntent()
-            )
-            viewModel.postBitBucketIssue(content).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                Log.d("bitbucket response", it.data.toString())
-
-                var responseText = "There was an issue creating the issue"
-                val type = it.data?.type
-                responseText = "$responseText: \n$type"
-                if(type == "issue"){
-                    val supportTickerNumber = it.data.id
-                    val supportTicketTitle = it.data.title
-
-                    ticketNumber.postValue(ticketNumber.value + "BB$supportTickerNumber")
-
-                    responseText = "$supportTicketTitle " +
-                            "\n\nSorry about that! " +
-                            "\n\nYour support ticket number is below." +
-                            "\n\nPlease use this when talking to our support team about this issue."
-
-                }
-
-                postIssueEndUI(responseText)
-            })
         }
     }
 
     private fun postIssueService(){
         postIssueStartUI()
-        if(UCEHandler._githubService != null){
-            postGithubIssue()
+
+        when {
+            UCEHandler._githubService != null -> postGithubIssue()
+            UCEHandler._bitBucketService != null -> postBitBucketIssue()
+            UCEHandler._gitLabService != null -> postGitlabIssue()
         }
     }
 
@@ -139,11 +122,71 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
                 }
 
-                if(UCEHandler._bitBucketService != null){
-                    postBitBucketIssue()
-                }else{
-                    postIssueEndUI(responseText)
+                when {
+                    UCEHandler._bitBucketService != null -> postBitBucketIssue()
+                    UCEHandler._gitLabService != null -> postGitlabIssue()
+                    else -> postIssueEndUI(responseText)
                 }
+
+            })
+        }
+    }
+
+    private fun postBitBucketIssue(){
+        if(context != null){
+            val content = Content(
+                    raw = getAllErrorDetailsFromIntent()
+            )
+            viewModel.postBitBucketIssue(content).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                Log.d("bitbucket response", it.data.toString())
+
+                var responseText = "There was an issue creating the issue"
+                val type = it.data?.type
+                responseText = "$responseText: \n$type"
+                if(type == "issue"){
+                    val supportTickerNumber = it.data.id
+                    val supportTicketTitle = it.data.title
+
+                    ticketNumber.postValue(ticketNumber.value + "BB$supportTickerNumber")
+
+                    responseText = "$supportTicketTitle " +
+                            "\n\nSorry about that! " +
+                            "\n\nYour support ticket number is below." +
+                            "\n\nPlease use this when talking to our support team about this issue."
+
+                }
+
+                when {
+                    UCEHandler._gitLabService != null -> postGitlabIssue()
+                    else -> postIssueEndUI(responseText)
+                }
+            })
+        }
+    }
+
+    private fun postGitlabIssue(){
+        if(context != null){
+
+            viewModel.postGitlabIssue(getAllErrorDetailsFromIntent()).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                Log.d("gitlab response", it.data.toString())
+
+                var responseText = "There was an issue creating the issue"
+                val error = it.data?.error
+                responseText = "$responseText: \n$error"
+                if(error == null){
+                    val supportTickerNumber = it.data?.iid
+                    val supportTicketTitle = it.data?.title
+
+                    ticketNumber.postValue(ticketNumber.value + "GL$supportTickerNumber")
+
+                    responseText = "$supportTicketTitle " +
+                            "\n\nSorry about that! " +
+                            "\n\nYour support ticket number is below." +
+                            "\n\nPlease use this when talking to our support team about this issue."
+
+                }
+
+                postIssueEndUI(responseText)
             })
         }
     }

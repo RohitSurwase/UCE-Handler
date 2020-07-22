@@ -16,7 +16,6 @@ class BitBucket private constructor(builder: Builder)  {
         internal var userName = ""
         internal var projectName = ""
         internal var appPassword = ""
-        internal var mode = Mode.Automatic
 
         fun setRepoName(repoName: String) : Builder {
             this.repoName = repoName

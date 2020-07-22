@@ -3,6 +3,7 @@ package com.jampez.uceh_example
 import android.app.Application
 import com.jampez.uceh.features.bitbucket.BitBucket
 import com.jampez.uceh.features.github.Github
+import com.jampez.uceh.features.gitlab.GitLab
 import com.jampez.uceh.features.uce.UCEHandler
 import com.jampez.uceh.utils.Mode
 
@@ -21,15 +22,19 @@ class MyApplication : Application() {
         uceHandlerBuilder.setIssueMode(Mode.Manual)
         uceHandlerBuilder.setIssueButtonText("Create a Support Ticket")
         uceHandlerBuilder.setGithubService(Github.Builder()
-                .setAccessToken("c1510626614c54859a3af2a30cf486e20f0c025c")
-                .setRepoName("UCE-Handler")
-                .setUsername("jampez77")
+                .setAccessToken("<< github access token >>")
+                .setRepoName("<< repo name >>")
+                .setUsername("<< username >>")
         )
         uceHandlerBuilder.setBitBucketService(BitBucket.Builder()
-                .setUsername("jampez77_")
-                .setAppPassword("t78b8AjfrGxYWwA3gRre")
-                .setProjectName("metro-times-android")
-                .setRepoName("metrotimes")
+                .setUsername("<< username >>")
+                .setAppPassword("<< app password >>")
+                .setProjectName("<< project name >>")
+                .setRepoName("<< repo name >>")
+        )
+        uceHandlerBuilder.setGitLabService(GitLab.Builder()
+                .setAccessToken("<< access token >>")
+                .setProjectID("<< project id >>")
         )
         uceHandlerBuilder.build()
     }

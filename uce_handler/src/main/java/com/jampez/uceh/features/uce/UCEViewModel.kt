@@ -7,8 +7,13 @@ import com.jampez.uceh.features.bitbucket.BitBucketResponse
 import com.jampez.uceh.features.bitbucket.Content
 import com.jampez.uceh.features.supportissue.SupportIssueRepository
 import com.jampez.uceh.features.github.GithubResponse
+import com.jampez.uceh.features.gitlab.GitLabResponse
 
 class UCEViewModel(private val supportIssueRepository: SupportIssueRepository) : ViewModel(){
+
+    fun postGitlabIssue(description: String?) : LiveData<Resource<GitLabResponse>> {
+        return supportIssueRepository.postGitlabIssue(description)
+    }
 
     fun postGithubIssue(body: String?) : LiveData<Resource<GithubResponse>> {
         return supportIssueRepository.postGithubIssue(body)

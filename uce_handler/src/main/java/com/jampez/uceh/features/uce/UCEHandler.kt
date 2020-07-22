@@ -15,6 +15,8 @@ import androidx.core.content.ContextCompat
 import com.jampez.uceh.R
 import com.jampez.uceh.features.bitbucket.BitBucket
 import com.jampez.uceh.features.github.Github
+import com.jampez.uceh.features.gitlab.GitLab
+import com.jampez.uceh.features.gitlab.GitLabService
 import com.jampez.uceh.utils.Mode
 import java.io.PrintWriter
 import java.io.StringWriter
@@ -47,6 +49,7 @@ class UCEHandler private constructor(builder: Builder) {
         internal val copyrightInfo = COPYRIGHT_INFO
         internal var githubService: Github.Builder? = null
         internal var bitBucketService: BitBucket.Builder? = null
+        internal var gitlabService: GitLab.Builder? = null
         internal var issueMode: Mode = Mode.Manual
         internal var issueButtonText: String = "Create a Support Ticket"
 
@@ -67,6 +70,11 @@ class UCEHandler private constructor(builder: Builder) {
 
         fun setBitBucketService(bitBucketService: BitBucket.Builder): Builder {
             this.bitBucketService = bitBucketService
+            return this
+        }
+
+        fun setGitLabService(gitLabService: GitLab.Builder): Builder {
+            this.gitlabService = gitLabService
             return this
         }
 
@@ -196,6 +204,7 @@ class UCEHandler private constructor(builder: Builder) {
         var showTitle: Boolean = false
         var _githubService: Github.Builder? = null
         var _bitBucketService: BitBucket.Builder? = null
+        var _gitLabService: GitLab.Builder? = null
         var issueMode: Mode = Mode.Manual
         var issueButtonText: String? = "Create a Support Ticket"
 
@@ -395,14 +404,14 @@ class UCEHandler private constructor(builder: Builder) {
         commaSeparatedEmailAddresses = builder.commaSeparatedEmailAddresses
         _githubService = builder.githubService
         _bitBucketService = builder.bitBucketService
-        canCreateSupportTicket = (builder.githubService != null || builder.bitBucketService != null)
-        if(builder.githubService != null) {
-            builder.githubService!!.mode = issueMode
-            issueCreationMode =  builder.githubService?.mode ?: Mode.Automatic
-        }else if(builder.bitBucketService != null){
-            builder.bitBucketService!!.mode = issueMode
-            issueCreationMode =  builder.bitBucketService?.mode ?: Mode.Automatic
+        _gitLabService = builder.gitlabService
+        canCreateSupportTicket = (builder.githubService != null || builder.bitBucketService != null || builder.gitlabService != null)
+
+        if(canCreateSupportTicket) {
+            issueCreationMode =  builder.issueMode
         }
+
+
         issueButtonText = builder.issueButtonText
         setUCEHandler(builder.context)
     }

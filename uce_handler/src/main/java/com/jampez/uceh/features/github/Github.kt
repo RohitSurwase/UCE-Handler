@@ -14,7 +14,6 @@ class Github private constructor(builder: Builder)  {
         internal var repoName = ""
         internal var userName = ""
         internal var accessToken = ""
-        internal var mode = Mode.Automatic
 
         fun setRepoName(repoName: String) : Builder {
             this.repoName = repoName
