@@ -25,9 +25,9 @@ import retrofit2.Response
 
 class SupportIssueRepository{
 
-    val GITLAB_BASE_URL = "https://gitlab.com/api/v4/projects/%1s/issues"
-    val GITHUB_BASE_URL = "https://api.github.com/repos/%1s/%2s/issues/"
-    val BITBUCKET_ISSUE_URL = "https://api.bitbucket.org/2.0/repositories/%1s/%2s/issues/"
+    private val GITLAB_BASE_URL = "https://gitlab.com/api/v4/projects/%1s/issues"
+    private val GITHUB_BASE_URL = "https://api.github.com/repos/%1s/%2s/issues/"
+    private val BITBUCKET_ISSUE_URL = "https://api.bitbucket.org/2.0/repositories/%1s/%2s/issues/"
 
     private val gitlabService: GitLabService get() = RetrofitClient.getClient(GITLAB_BASE_URL)!!.create(GitLabService::class.java)
 
@@ -56,9 +56,9 @@ class SupportIssueRepository{
                                     .getClient(url)?.
                                     responseBodyConverter<GitLabResponse>(GitLabResponse::class.java,
                                             arrayOfNulls<Annotation>(0))
-
-                            if (response?.errorBody() != null) {
-                                val error = errorConverter?.convert(response.errorBody())
+                            val errorBody = response?.errorBody()
+                            if (errorBody != null) {
+                                val error = errorConverter?.convert(errorBody)
                                 data.value = Resource.failed(error)
                             }
                         }
@@ -101,9 +101,9 @@ class SupportIssueRepository{
                             .getClient(url)?.
                             responseBodyConverter<GithubResponse>(GithubResponse::class.java,
                                     arrayOfNulls<Annotation>(0))
-
-                    if (response?.errorBody() != null) {
-                        val error = errorConverter?.convert(response.errorBody())
+                    val errorBody = response?.errorBody()
+                    if (errorBody != null) {
+                        val error = errorConverter?.convert(errorBody)
                         data.value = Resource.failed(error)
                     }
                 }
@@ -149,8 +149,9 @@ class SupportIssueRepository{
                                     responseBodyConverter<BitBucketResponse>(BitBucketResponse::class.java,
                                             arrayOfNulls<Annotation>(0))
 
-                            if (response?.errorBody() != null) {
-                                val error = errorConverter?.convert(response.errorBody())
+                            val errorBody = response?.errorBody()
+                            if (errorBody != null) {
+                                val error = errorConverter?.convert(errorBody)
                                 data.value = Resource.failed(error)
                             }
                         }

@@ -9,6 +9,7 @@ import com.jampez.uceh.data.modules.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
 class UCEDefaultActivity : AppCompatActivity(){
 
@@ -16,13 +17,13 @@ class UCEDefaultActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState?: Bundle())
 
         startKoin {
-            androidLogger()
+            androidLogger(Level.NONE)
             androidContext(applicationContext)
             modules(
-                    modules = listOf(
-                            viewModelModule,
-                            supportIssueModule
-                    )
+                listOf(
+                    viewModelModule,
+                    supportIssueModule
+                )
             )
         }
 

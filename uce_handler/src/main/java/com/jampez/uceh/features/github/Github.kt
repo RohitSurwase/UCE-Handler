@@ -1,7 +1,5 @@
 package com.jampez.uceh.features.github
 
-import com.jampez.uceh.utils.Mode
-
 class Github private constructor(builder: Builder)  {
 
     companion object{

@@ -11,13 +11,8 @@ enum class Mode {
     Automatic, Manual
 }
 
-@Suppress("DEPRECATION")
 fun Context.getDrawableCompat(id: Int): Drawable?{
-    return if (Build.VERSION.SDK_INT >= 21) {
-        ContextCompat.getDrawable(this, id)
-    } else {
-        this.resources.getDrawable(id)
-    }
+    return ContextCompat.getDrawable(this, id)
 }
 
 @Suppress("DEPRECATION")

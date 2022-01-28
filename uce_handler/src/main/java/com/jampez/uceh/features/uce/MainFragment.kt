@@ -21,7 +21,7 @@ import com.jampez.uceh.utils.getDrawableCompat
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.background_image
 import kotlinx.android.synthetic.main.fragment_main.button_view_error_log
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -48,9 +48,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         background_image.setImageDrawable(context?.getDrawableCompat(UCEHandler.iconDrawable)!!)
 
         ticketNumber.postValue("")
-        ticketNumber.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        ticketNumber.observe(viewLifecycleOwner) {
             support_ticket_number.text = it
-        })
+        }
 
         //make sure we have a service
         if(UCEHandler.canCreateSupportTicket) {
@@ -100,7 +100,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun postIssueService(){
-        postIssueStartUI()
+
+        if (UCEHandler.canCreateSupportTicket) {
+            postIssueStartUI()
+        }
 
         when {
             UCEHandler._githubService != null -> postGithubIssue()
@@ -112,13 +115,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun postGithubIssue(){
         if(context != null){
 
-            viewModel.postGithubIssue(getAllErrorDetailsFromIntent()).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            viewModel.postGithubIssue(getAllErrorDetailsFromIntent()).observe(viewLifecycleOwner) {
                 Log.d("github response", it.data.toString())
 
                 var responseText = "There was an issue creating the issue"
                 val message = it.data?.message
                 responseText = "$responseText: \n$message"
-                if(message == null || message.isNullOrEmpty()){
+                if (message == null || message.isNullOrEmpty()) {
                     val supportTickerNumber = it.data?.number
                     val supportTicketTitle = it.data?.title
 
@@ -137,7 +140,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     else -> postIssueEndUI(responseText)
                 }
 
-            })
+            }
         }
     }
 
@@ -146,13 +149,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             val content = Content(
                     raw = getAllErrorDetailsFromIntent()
             )
-            viewModel.postBitBucketIssue(content).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            viewModel.postBitBucketIssue(content).observe(viewLifecycleOwner) {
                 Log.d("bitbucket response", it.data.toString())
 
                 var responseText = "There was an issue creating the issue"
                 val type = it.data?.type
                 responseText = "$responseText: \n$type"
-                if(type == "issue"){
+                if (type == "issue") {
                     val supportTickerNumber = it.data.id
                     val supportTicketTitle = it.data.title
 
@@ -169,20 +172,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     UCEHandler._gitLabService != null -> postGitlabIssue()
                     else -> postIssueEndUI(responseText)
                 }
-            })
+            }
         }
     }
 
     private fun postGitlabIssue(){
         if(context != null){
 
-            viewModel.postGitlabIssue(getAllErrorDetailsFromIntent()).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            viewModel.postGitlabIssue(getAllErrorDetailsFromIntent()).observe(viewLifecycleOwner) {
                 Log.d("gitlab response", it.data.toString())
 
                 var responseText = "There was an issue creating the issue"
                 val error = it.data?.error
                 responseText = "$responseText: \n$error"
-                if(error == null){
+                if (error == null) {
                     val supportTickerNumber = it.data?.iid
                     val supportTicketTitle = it.data?.title
 
@@ -196,7 +199,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
 
                 postIssueEndUI(responseText)
-            })
+            }
         }
     }
 

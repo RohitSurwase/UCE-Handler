@@ -1,7 +1,5 @@
 package com.jampez.uceh.features.bitbucket
 
-import com.jampez.uceh.utils.Mode
-
 class BitBucket private constructor(builder: Builder)  {
 
     companion object{

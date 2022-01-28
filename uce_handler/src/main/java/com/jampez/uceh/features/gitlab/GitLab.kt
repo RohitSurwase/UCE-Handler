@@ -1,7 +1,5 @@
 package com.jampez.uceh.features.gitlab
 
-import com.jampez.uceh.utils.Mode
-
 class GitLab private constructor(builder: Builder)  {
 
     companion object{

@@ -55,6 +55,7 @@
       android:layout_centerInParent="true"
       style="?android:attr/progressBarStyleLarge"
       android:layout_width="wrap_content"
+      android:visibility="invisible"
       android:minWidth="100dp"
       android:layout_height="wrap_content"
       android:minHeight="100dp"/>

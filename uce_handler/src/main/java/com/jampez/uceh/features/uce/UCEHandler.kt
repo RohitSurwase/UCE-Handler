@@ -326,12 +326,7 @@ class UCEHandler private constructor(builder: Builder) {
         }
 
         fun getDrawableFromInt(context: Context, id: Int): Drawable? {
-            val version = Build.VERSION.SDK_INT
-            return try {
-                if (version >= 21) ContextCompat.getDrawable(context, id) else context.resources.getDrawable(id)
-            } catch (e: Exception) {
-                null
-            }
+            return ContextCompat.getDrawable(context, id)
         }
     }
 
