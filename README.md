@@ -68,7 +68,7 @@ In your Project's build.gradle file:
 In your Application's or Module's build.gradle file:
 
 	dependencies {
-	        api 'com.github.jampez77:UCE-Handler:2.0.0'
+	        api 'com.github.jampez77:UCE-Handler:2.0.1'
 	}
 
 In your Application class:
